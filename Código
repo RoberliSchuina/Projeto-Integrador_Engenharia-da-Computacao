@@ -1,7 +1,5 @@
 /*
- * Programa: RFID - Controle de acesso / cancela (Revisado com Relé e Letreiro)
- * Autor: Arduino e Cia (Revisado por Gemini)
- *
+ * Programa: Controle de Acesso Inteligente com Foco em Eficiência Energética
  * Funcionalidades:
  * - Leitura RFID (MFRC522)
  * - Controle de cancela (Servo)
@@ -9,7 +7,7 @@
  * - Feedback sonoro diferenciado (Buzzer Ativo)
  * - Exibição de status (LCD I2C)
  * - Registro de data/hora do acesso (RTC DS1302)
- * - NOVO: Display ocioso alterna (letreiro) entre duas telas (Projeto e Relógio)
+ * - Display ocioso alterna (letreiro) entre duas telas (Projeto e Relógio)
  */
 
 #include <SPI.h>
@@ -31,14 +29,10 @@ MFRC522 mfrc522(SS_PIN, RST_PIN);
 #define BUZZER_PIN A0  // Buzzer Ativo (Pino A0)
 #define RELE_PIN A1    // Pino de controle do Relé 5V (Ventoinha) - Active HIGH
 
-// --- NOVO: Pinos do LED RGB (HW-479 Cátodo Comum) ---
-#define RGB_R_PIN 6    // Pino VERMELHO do LED RGB (antigo led_negado)
-#define RGB_G_PIN 5    // Pino VERDE do LED RGB (antigo led_liberado)
+// --- Pinos do LED RGB (HW-479 Cátodo Comum) ---
+#define RGB_R_PIN 6    // Pino VERMELHO do LED RGB 
+#define RGB_G_PIN 5    // Pino VERDE do LED RGB 
 #define RGB_B_PIN 2    // Pino AZUL do LED RGB (para estado Ocioso)
-
-// --- REMOVIDO (Substituído por RGB) ---
-// int led_liberado = 5;
-// int led_negado = 6;
 
 // --- Configuração do Servo ---
 Servo microservo9g; // Conectado ao Pino 3
@@ -57,7 +51,7 @@ RtcDS1302<ThreeWire> Rtc(myWire);
 // --- Configuração do LCD I2C ---
 LiquidCrystal_I2C lcd(0x27, 16, 2); // Endereço 0x27, 16x2
 
-// --- NOVO: Variáveis de Controle do Letreiro Ocioso ---
+// --- Variáveis de Controle do Letreiro Ocioso ---
 unsigned long lastDisplayChange = 0; // Armazena a última vez que o display mudou
 const long displayInterval = 3000;  // Intervalo de 3 segundos (3000 ms) para alternar
 bool showScreenA = true;            // Controla qual tela exibir (A ou B)
@@ -125,10 +119,10 @@ void displayTime(RtcDateTime t) {
 void displayScreenA() {
   lcd.clear();
   lcd.setCursor(0, 0);
-  // Texto Abreviado (Original era "PROJETO INTEGRADOR - ENGENHARIA...")
+  // Texto Abreviado (Linha 1)
   lcd.print("PROJ. INTEGRADOR"); 
   lcd.setCursor(0, 1);
-  // Texto Abreviado (Original era "APROXIME O CARTÃO")
+  // Texto Linha 2
   lcd.print("APROXIMAR CARTAO");
 }
 
@@ -137,7 +131,7 @@ void displayScreenB(RtcDateTime t) {
   lcd.clear();
   lcd.setCursor(0, 0);
   
-  // NOVO: Linha 1 (Data Completa) - Ex: "Data: 08/11/2025"
+  // Linha 1 (Data Completa) - Ex: "Data: 08/11/2025
   lcd.print("Data: ");
   if (t.Day() < 10) lcd.print("0");
   lcd.print(t.Day());
@@ -147,7 +141,7 @@ void displayScreenB(RtcDateTime t) {
   lcd.print("/");
   lcd.print(t.Year()); // Total 16 caracteres
 
-  // NOVO: Linha 2 (Hora Completa) - Ex: "Hora: 11:56:20"
+  // Linha 2 (Hora Completa) - Ex: "Hora: 11:56:20"
   lcd.setCursor(0, 1);
   lcd.print("Hora: ");
   if (t.Hour() < 10) lcd.print("0");
@@ -167,7 +161,7 @@ void setup()
   lcd.init();
   lcd.backlight();
   
-  // NOVO: Mostra a primeira tela do letreiro na inicialização
+  // Mostra a primeira tela do letreiro na inicialização
   displayScreenA(); 
   lastDisplayChange = millis(); // Inicia o timer do letreiro
 
@@ -177,7 +171,7 @@ void setup()
   pinMode(BUZZER_PIN, OUTPUT);
   pinMode(RELE_PIN, OUTPUT);
   
-  // NOVO: Configura os pinos RGB
+  // Configura os pinos RGB
   pinMode(RGB_R_PIN, OUTPUT);
   pinMode(RGB_G_PIN, OUTPUT);
   pinMode(RGB_B_PIN, OUTPUT);
@@ -185,7 +179,7 @@ void setup()
   // LÓGICA ACTIVE HIGH: Inicia o relé em LOW (Desligado)
   digitalWrite(RELE_PIN, LOW);
 
-  // NOVO: Define a cor inicial como AZUL (Ocioso)
+  // Define a cor inicial como AZUL (Ocioso)
   setRgbColor(LOW, LOW, HIGH); 
 
   // --- Configuração do RTC DS1302 ---
@@ -283,7 +277,7 @@ void loop()
     microservo9g.write(0);  // Abre a cancela
     // digitalWrite(led_liberado, HIGH); // REMOVIDO
     
-    // NOVO: Define a cor para VERDE (Liberado)
+    // Define a cor para VERDE (Liberado)
     setRgbColor(LOW, HIGH, LOW); 
     
     // LÓGICA ACTIVE HIGH: HIGH = LIGA
@@ -296,7 +290,7 @@ void loop()
     microservo9g.write(90); // Fecha a cancela
     // digitalWrite(led_liberado, LOW); // REMOVIDO
     
-    // NOVO: Retorna a cor para AZUL (Ocioso)
+    // Retorna a cor para AZUL (Ocioso)
     setRgbColor(LOW, LOW, HIGH); 
 
     // LÓGICA ACTIVE HIGH: LOW = DESLIGA
@@ -309,7 +303,7 @@ void loop()
   {
     beepNegado(); // Som de acesso negado
     
-    // NOVO: Apaga o LED (antes de piscar)
+    // Apaga o LED (antes de piscar)
     setRgbColor(LOW, LOW, LOW); 
 
     lcd.clear();
@@ -340,7 +334,7 @@ void loop()
     }
     delay(1000); // Tempo para o usuário ler a mensagem de negado
     
-    // NOVO: Retorna a cor para AZUL (Ocioso)
+    // Retorna a cor para AZUL (Ocioso)
     setRgbColor(LOW, LOW, HIGH); 
   }
   
