@@ -46,10 +46,6 @@ Display LCD
 
 Placa Montada (Protoboard)
 
-
-
-
-
 ⚙️ Componentes Utilizados
 
 1x Arduino Uno (ou similar)
