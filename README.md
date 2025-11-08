@@ -53,9 +53,7 @@ Placa Montada (Protoboard)
 
 🔌 Esquema de Ligação:
 
-Abaixo, insira uma imagem do seu esquema de ligação (Fritzing ou desenhado).
-
-(Recomendação: Use o software Fritzing para criar um diagrama limpo e profissional e adicione a imagem aqui.)
+AUTODESK - Tinkercad: https://www.tinkercad.com/things/7d8Z6DJloJX-projeto-integrador-engenharia-da-computacao
 
 🚀 Como Utilizar:
 
