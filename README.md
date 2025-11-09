@@ -41,18 +41,18 @@ Fotos do protótipo montado
 
 ⚙️ Componentes Utilizados:
 
-1x Arduino Uno;
-1x Leitor RFID MFRC522 com cartões e tags;
-1x Módulo Relé 5V (1 Canal) - Active HIGH;
-1x Módulo LED RGB Cátodo Comum (HW-479);
-1x Módulo RTC DS1302 (com bateria);
-1x Display LCD I2C 16x2 com módulo I2C integrado;
-1x Micro Servo 9g (SG90);
-1x Buzzer Ativo;
-2x Protoboard (400 e 830 Pontos) e Jumpers;
-1x Fonte Externa 12V (para a carga);
-1x Fonte Externa 9V (para o arduíno);
-1x Cooler (Ventoinha) 12V (simulando a carga).
+1. 1x Arduino Uno;
+2. 1x Leitor RFID MFRC522 com cartões e tags;
+3. 1x Módulo Relé 5V (1 Canal) - Active HIGH;
+4. 1x Módulo LED RGB Cátodo Comum (HW-479);
+5. 1x Módulo RTC DS1302 (com bateria);
+6. 1x Display LCD I2C 16x2 com módulo I2C integrado;
+7. 1x Micro Servo 9g (SG90);
+8. 1x Buzzer Ativo;
+9. 2x Protoboards (400 e 830 Pontos) e Jumpers;
+10. 1x Fonte Externa 12V (para a carga);
+11. 1x Fonte Externa 9V (para o arduíno);
+12. 1x Cooler (Ventoinha) 12V (simulando a carga).
 
 🔌 Esquema de Ligação:
 
