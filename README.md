@@ -110,9 +110,7 @@ Este protótipo é a base para um sistema completo. As próximas etapas com foco
 [ ] Migrar para ESP32/ESP8266: Adicionar conectividade Wi-Fi para logs na nuvem, dashboard de monitoramento e agendamento de horários de funcionamento via web;
 [ ] Criar uma interface web para inserir a criação dos log de acesso.
 
-Apresentação do projeto:
-
-https://gamma.app/docs/Controle-de-Acesso-Inteligente-com-Foco-em-Eficiencia-Energetica-62sox0it18n5l07
+Apresentação do Projeto: https://gamma.app/docs/Controle-de-Acesso-Inteligente-com-Foco-em-Eficiencia-Energetica-62sox0it18n5l07
 
 👨‍💻 Autores:
 1. BENÍZIO LÁZARO JÚNIOR;
