@@ -61,6 +61,9 @@ Fotos do Protótipo montado
 
 AUTODESK - Tinkercad: https://www.tinkercad.com/things/7d8Z6DJloJX-projeto-integrador-engenharia-da-computacao
 
+![Projeto Integrador - Engenharia da Computação_Esquema de ligação](https://github.com/user-attachments/assets/f7c73499-a6ed-4d59-b377-121ca8fe703a)
+
+
 🚀 Como Utilizar:
 
 1. Bibliotecas Necessárias
