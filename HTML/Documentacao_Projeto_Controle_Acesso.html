@@ -194,7 +194,7 @@
   período de uso, gerando ao final um relatório de consumo e economia.</p>
   <ol class="flow">
     <li><b>Em repouso:</b> LED RGB azul; o LCD alterna entre “PROJ. INTEGRADOR / APROXIMAR CARTAO” e a data/hora do RTC (a cada 3 s).</li>
-    <li><b>Cartão válido:</b> 1 bipe, LED verde, o relé liga a carga (ar-condicionado + lâmpadas), o servo abre a cancela (0°) e fecha (90°); inicia a contagem de tempo e exibe “SALA OCUPADA”.</li>
+    <li><b>Cartão válido:</b> 1 bipe, LED verde, o relé liga a carga (ventoinha + LEDs), o servo abre a cancela (0°) e fecha (90°); inicia a contagem de tempo e exibe “SALA OCUPADA”.</li>
     <li><b>Cartão inválido:</b> 2 bipes, LED vermelho e mensagem “ACESSO NEGADO!”.</li>
     <li><b>Botão pressionado:</b> desliga o relé, LED azul e exibe o <b>relatório</b> (tempo, kWh, gasto em R$ e valor economizado); retorna ao estado de repouso.</li>
   </ol>
@@ -290,7 +290,7 @@
 <text class="ts" x="480" y="254">Ativo · I/O em A0</text>
 <rect class="box" x="470" y="268" width="190" height="42" rx="6"/>
 <text class="th" x="480" y="288">Módulo Relé</text>
-<text class="ts" x="480" y="304">IN=A1 · HIGH liga</text>
+<text class="ts" x="480" y="304">IN=A1 · LOW liga</text>
 <rect class="box" x="470" y="314" width="190" height="44" rx="6"/>
 <text class="th" x="480" y="334">Botão (desliga)</text>
 <text class="ts" x="480" y="350">p/ GND · pull-up int.</text>
@@ -346,7 +346,7 @@
 <text class="ts" x="30" y="274">CE4 · DAT7 · CLK8</text>
 <rect class="box" x="505" y="72" width="155" height="56" rx="6"/>
 <text class="th" x="515" y="92">Módulo Relé</text>
-<text class="ts" x="515" y="110">IN A1 · HIGH liga</text>
+<text class="ts" x="515" y="110">IN A1 · LOW liga</text>
 <text class="ts" x="515" y="124">→ AC + lâmpadas</text>
 <rect class="box" x="505" y="140" width="155" height="44" rx="6"/>
 <text class="th" x="515" y="162">Micro Servo 9g</text>
@@ -402,7 +402,7 @@
 <circle cx="150" cy="320" r="2.6" fill="#707883"/><text class="ts" x="144" y="324" text-anchor="end">GND</text>
 <rect class="box" x="270" y="200" width="190" height="160" rx="8"/>
 <text class="th" x="365" y="222" text-anchor="middle">MÓDULO RELÉ</text>
-<text class="ts" x="365" y="238" text-anchor="middle">1 canal — HIGH liga</text>
+<text class="ts" x="365" y="238" text-anchor="middle">1 canal — LOW liga</text>
 <path d="M395 250 V355" fill="none" stroke="#b9b5aa" stroke-width="1" stroke-dasharray="4 4"/>
 <circle cx="270" cy="262" r="2.6" fill="#707883"/><text class="ts" x="278" y="266" text-anchor="start">IN</text>
 <circle cx="270" cy="300" r="2.6" fill="#707883"/><text class="ts" x="278" y="304" text-anchor="start">VCC</text>
@@ -449,7 +449,7 @@
 <circle cx="36" cy="457" r="5" fill="#E0822E"/>
 <text class="ts" x="48" y="461" text-anchor="start">Cartão válido (A1 = HIGH): relé ON → COM–NO → ventoinha LIGA</text>
 <rect class="box" x="30" y="470" width="620" height="24" rx="5"/>
-<text class="ts" x="40" y="486" text-anchor="start">⚠ Use módulo HIGH-trigger. Se for LOW-trigger, a ventoinha liga ao energizar → inverta a lógica no código.</text>
+<text class="ts" x="40" y="486" text-anchor="start">⚠ Relé LOW-trigger: LOW liga (já ajustado no código). Se for HIGH-trigger, inverta os #define.</text>
 </svg>
   </div>
   <div class="cap"><b>Figura 3.</b> Relé em repouso (desenergizado): ventoinha desligada. Só o cartão válido (A1 = HIGH) fecha COM–NO e liga a ventoinha.</div>
@@ -598,12 +598,17 @@
       <tr><td>6</td><td><b>LED RGB</b> (cátodo comum)</td><td>Sinalização: azul=ocioso, verde=liberado, vermelho=negado</td><td>via resistores</td></tr>
       <tr><td>7</td><td><b>Micro Servo 9g</b></td><td>Cancela/barreira física (0°=abre, 90°=fecha)</td><td>5 V</td></tr>
       <tr><td>8</td><td><b>Buzzer</b> (ativo)</td><td>Bipe de liberado (1×) e de negado (2×)</td><td>5 V</td></tr>
-      <tr><td>9</td><td><b>Módulo Relé</b> (1 canal, Active HIGH)</td><td>Liga/desliga a carga (ar-condicionado + lâmpadas)</td><td>5 V</td></tr>
+      <tr><td>9</td><td><b>Módulo Relé</b> (1 canal, LOW-trigger)</td><td>Liga/desliga a carga (ventoinha + LEDs)</td><td>5 V</td></tr>
       <tr><td>10</td><td><b>Botão</b> (push-button)</td><td>Encerra a sessão e dispara o relatório</td><td>INPUT_PULLUP</td></tr>
       <tr><td>11</td><td><b>Resistores</b> (220–330 Ω)</td><td>Limitação de corrente do LED RGB</td><td>—</td></tr>
-      <tr><td>12</td><td><b>Carga controlada</b></td><td>Ar-condicionado + 6 lâmpadas LED (demonstrativo)</td><td>rede AC</td></tr>
+      <tr><td>12</td><td><b>Ventoinha 12 V DC</b></td><td>Carga acionada pelo relé (indica "sala em uso")</td><td>12 V (fonte externa)</td></tr>
+      <tr><td>13</td><td><b>LEDs do painel</b> (em paralelo)</td><td>Acendem junto com a ventoinha ao liberar o acesso</td><td>12 V (via resistor)</td></tr>
+      <tr><td>14</td><td><b>Resistores 470 Ω</b> (1 por LED)</td><td>Limitam a corrente dos LEDs do painel</td><td>—</td></tr>
+      <tr><td>15</td><td><b>Fonte / bateria 12 V DC</b></td><td>Alimenta o lado de potência, isolado pelo relé</td><td>rede / bateria</td></tr>
+      <tr><td>16</td><td><b>Diodo 1N4007</b> (roda-livre) <em>(recomendado)</em></td><td>Protege os contatos do relé do pico do motor da ventoinha</td><td>—</td></tr>
     </tbody>
   </table>
+  <p class="lead"><b>Sobre a carga:</b> a ventoinha e os LEDs são a <b>carga física demonstrativa</b> acionada pelo relé. O <b>cálculo de energia</b> (Seções 6 e 8) usa a <b>premissa</b> de uma sala real — ar-condicionado + 6 lâmpadas LED — para estimar consumo e economia.</p>
 
   <!-- 6. SOFTWARE -->
   <h2 id="software"><span class="num">6.</span>Bibliotecas e parâmetros</h2>
@@ -657,7 +662,7 @@
       <tr><td>LED RGB</td><td>Azul (B)</td><td class="pin">D2</td><td>digital</td></tr>
       <tr><td>Micro Servo 9g</td><td>Sinal</td><td class="pin">D3</td><td>PWM</td></tr>
       <tr><td>Buzzer</td><td>Sinal (+)</td><td class="pin">A0</td><td>digital</td></tr>
-      <tr><td>Módulo Relé</td><td>IN</td><td class="pin">A1</td><td>digital (HIGH liga)</td></tr>
+      <tr><td>Módulo Relé</td><td>IN</td><td class="pin">A1</td><td>digital (LOW liga)</td></tr>
       <tr><td>Botão</td><td>Terminal 1 → GND</td><td class="pin">A2</td><td>INPUT_PULLUP</td></tr>
     </tbody>
   </table>
@@ -681,7 +686,7 @@
     <ul>
       <li><strong>RC522 só em 3,3 V:</strong> ligar o VCC dele em 5 V costuma danificar o módulo.</li>
       <li><strong>LED RGB precisa de resistores</strong> (220–330 Ω) em cada cor; o código é de <em>cátodo comum</em> (nível ALTO acende), então o pino comum vai ao GND.</li>
-      <li><strong>Relé Active HIGH:</strong> <code>HIGH</code> liga a carga. Se o módulo for <em>active low</em>, a lógica precisa ser invertida no código.</li>
+      <li><strong>Relé LOW-trigger:</strong> neste projeto <code>LOW</code> liga a carga (ajustado no código via <code>RELE_LIGA</code>/<code>RELE_DESLIGA</code>). Se o seu módulo for <em>HIGH-trigger</em>, basta inverter esses dois <code>#define</code>.</li>
       <li><strong>Botão em INPUT_PULLUP:</strong> ligar entre <b>A2 e GND</b> (aciona em nível baixo).</li>
       <li><strong>Corrente:</strong> servo + relé + LCD em 5 V podem exceder o que a porta USB fornece; para a carga real use fonte externa com <b>GND comum</b>.</li>
     </ul>
