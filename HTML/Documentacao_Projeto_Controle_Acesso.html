@@ -1,0 +1,697 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Documentação — Controle de Acesso RFID + Eficiência Energética</title>
+<style>
+  :root{
+    /* tokens usados pelos diagramas SVG */
+    --color-background-primary:#ffffff;
+    --color-background-secondary:#f4f3ee;
+    --color-border-primary:#c7c3b8;
+    --color-border-secondary:#ded9cd;
+    --color-text-primary:#1f2328;
+    --color-text-secondary:#5b6065;
+    /* tema do documento */
+    --accent:#0d7d74;
+    --accent-soft:#e6f3f1;
+    --ink:#1f2328;
+    --muted:#5b6065;
+    --line:#e3e1d8;
+    --warn:#b8541b;
+    --warn-soft:#fbeee3;
+  }
+  *{box-sizing:border-box;}
+  html{-webkit-print-color-adjust:exact;print-color-adjust:exact;}
+  body{
+    font-family:'Segoe UI',system-ui,-apple-system,Roboto,Arial,sans-serif;
+    color:var(--ink);line-height:1.62;margin:0;background:#eceae3;
+  }
+  .page{max-width:980px;margin:0 auto;background:#fff;padding:0 36px 64px;
+    box-shadow:0 1px 16px rgba(0,0,0,.06);}
+
+  /* Cabeçalho */
+  header.cover{margin:0 -36px 28px;padding:34px 36px 26px;
+    background:linear-gradient(120deg,#0d7d74 0%,#0a5f59 100%);color:#fff;}
+  .eyebrow{font-size:12.5px;letter-spacing:.14em;text-transform:uppercase;
+    opacity:.85;font-weight:500;}
+  header.cover h1{font-size:27px;line-height:1.2;margin:8px 0 4px;font-weight:600;}
+  header.cover .subtitle{font-size:15px;opacity:.92;margin:0 0 18px;}
+  .meta-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;
+    border-top:1px solid rgba(255,255,255,.25);padding-top:14px;}
+  .meta-grid .k{font-size:11px;text-transform:uppercase;letter-spacing:.06em;opacity:.8;}
+  .meta-grid .v{font-size:14px;font-weight:500;margin-top:2px;}
+
+  h2{font-size:20px;font-weight:600;margin:34px 0 6px;color:var(--ink);
+    padding-bottom:7px;border-bottom:2px solid var(--accent);}
+  h2 .num{color:var(--accent);margin-right:8px;}
+  h3{font-size:15.5px;font-weight:600;margin:20px 0 6px;color:#0a5f59;}
+  p{margin:8px 0;}
+  .lead{color:var(--muted);font-size:14.5px;}
+  a{color:var(--accent);}
+
+  /* Sumário */
+  .toc{background:var(--accent-soft);border:1px solid #cfe7e3;border-radius:10px;
+    padding:14px 20px;margin:22px 0;font-size:14px;}
+  .toc strong{display:block;margin-bottom:6px;color:#0a5f59;font-size:12.5px;
+    letter-spacing:.05em;text-transform:uppercase;}
+  .toc ol{margin:0;padding-left:20px;columns:2;column-gap:32px;}
+  .toc li{margin:3px 0;}
+  .toc a{text-decoration:none;color:var(--ink);}
+  .toc a:hover{color:var(--accent);text-decoration:underline;}
+
+  /* Diagramas */
+  .diagram-card{border:1px solid var(--line);border-radius:12px;background:#fff;
+    padding:16px 18px 10px;margin:14px 0 6px;break-inside:avoid;}
+  .diagram-card svg{display:block;width:100%;height:auto;}
+  /* Classes usadas DENTRO dos SVG — precisam ser definidas aqui no arquivo standalone,
+     senão os retangulos .box ficam pretos (fill padrao do SVG) e o texto some. */
+  svg text.t{font-family:'Segoe UI',system-ui,sans-serif;font-size:14px;fill:var(--color-text-primary);}
+  svg text.ts{font-family:'Segoe UI',system-ui,sans-serif;font-size:12px;fill:var(--color-text-secondary);}
+  svg text.th{font-family:'Segoe UI',system-ui,sans-serif;font-size:14px;font-weight:500;fill:var(--color-text-primary);}
+  svg rect.box{fill:var(--color-background-secondary);stroke:var(--color-border-primary);stroke-width:.5;}
+  .cap{font-size:13px;color:var(--muted);margin:4px 2px 18px;text-align:center;}
+  .cap b{color:var(--ink);}
+
+  /* Tabelas */
+  table{border-collapse:collapse;width:100%;margin:10px 0 4px;font-size:13.6px;}
+  caption{caption-side:top;text-align:left;font-size:12.5px;color:var(--muted);
+    margin-bottom:6px;}
+  th,td{text-align:left;padding:8px 11px;border-bottom:1px solid var(--line);
+    vertical-align:top;}
+  thead th{background:#0d7d74;color:#fff;font-weight:500;border-bottom:none;
+    font-size:12.5px;letter-spacing:.02em;}
+  tbody tr:nth-child(even){background:#faf9f5;}
+  tr{break-inside:avoid;}
+  td.pin{font-family:'Consolas','Courier New',monospace;font-weight:600;color:#0a5f59;
+    white-space:nowrap;}
+  .tag{display:inline-block;font-size:11.5px;padding:1px 8px;border-radius:20px;
+    background:var(--accent-soft);color:#0a5f59;font-weight:500;}
+
+  /* Listas de bus / chips */
+  .chips{display:flex;flex-wrap:wrap;gap:8px;margin:10px 0;}
+  .chip{border:1px solid var(--line);border-radius:8px;padding:6px 12px;font-size:13px;
+    background:#faf9f5;}
+  .chip code{font-family:'Consolas','Courier New',monospace;color:#0a5f59;}
+
+  /* Cartões de parâmetro */
+  .grid2{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:10px 0;}
+  .param{border:1px solid var(--line);border-left:4px solid var(--accent);
+    border-radius:8px;padding:10px 14px;background:#fff;}
+  .param .name{font-family:'Consolas','Courier New',monospace;font-size:12.5px;color:var(--muted);}
+  .param .val{font-size:17px;font-weight:600;color:#0a5f59;margin-top:2px;}
+  .param .desc{font-size:12.5px;color:var(--muted);margin-top:2px;}
+
+  /* Fluxo de operação */
+  .flow{counter-reset:step;margin:12px 0;padding:0;list-style:none;}
+  .flow li{position:relative;padding:10px 0 10px 46px;border-bottom:1px dashed var(--line);}
+  .flow li:last-child{border-bottom:none;}
+  .flow li::before{counter-increment:step;content:counter(step);position:absolute;left:0;top:9px;
+    width:30px;height:30px;border-radius:50%;background:var(--accent);color:#fff;
+    display:flex;align-items:center;justify-content:center;font-weight:600;font-size:14px;}
+  .flow b{color:#0a5f59;}
+
+  /* Fórmulas */
+  .formula{background:#f4f3ee;border:1px solid var(--line);border-radius:8px;
+    padding:12px 16px;font-family:'Consolas','Courier New',monospace;font-size:13px;
+    margin:10px 0;line-height:1.9;color:#283;}
+  .formula .c{color:var(--muted);}
+
+  /* Aviso */
+  .notes{background:var(--warn-soft);border:1px solid #f0d3bd;border-left:4px solid var(--warn);
+    border-radius:8px;padding:6px 22px;margin:14px 0;}
+  .notes li{margin:8px 0;font-size:13.8px;}
+  .notes strong{color:var(--warn);}
+
+  footer{margin-top:40px;padding-top:16px;border-top:1px solid var(--line);
+    font-size:12px;color:var(--muted);display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px;}
+
+  /* Botão imprimir */
+  .printbar{position:sticky;top:0;z-index:5;background:#fff;border-bottom:1px solid var(--line);
+    margin:0 -36px 0;padding:10px 36px;display:flex;justify-content:flex-end;}
+  .printbtn{background:var(--accent);color:#fff;border:none;border-radius:8px;
+    padding:8px 16px;font-size:13.5px;font-weight:500;cursor:pointer;}
+  .printbtn:hover{background:#0a5f59;}
+
+  @media print{
+    body{background:#fff;}
+    .page{box-shadow:none;max-width:none;padding:0 8px;}
+    .printbar{display:none;}
+    header.cover{margin:0 0 20px;border-radius:0;}
+    h2{break-after:avoid;}
+    .diagram-card{border-color:#ccc;}
+  }
+  @page{margin:1.4cm;}
+  @media(max-width:760px){
+    .meta-grid{grid-template-columns:1fr 1fr;}
+    .grid2,.toc ol{grid-template-columns:1fr;columns:1;}
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <div class="printbar">
+    <button class="printbtn" onclick="window.print()">🖨️ Imprimir / Salvar como PDF</button>
+  </div>
+
+  <header class="cover">
+    <div class="eyebrow">Projeto Integrador · FAESA 2025</div>
+    <h1>Controle de Acesso com RFID e Eficiência Energética</h1>
+    <div class="subtitle">Documentação de Hardware — Conexões, Pinagem e Lista de Elementos</div>
+    <div class="meta-grid">
+      <div><div class="k">Plataforma</div><div class="v">Arduino Uno</div></div>
+      <div><div class="k">Microcontrolador</div><div class="v">ATmega328P</div></div>
+      <div><div class="k">Firmware</div><div class="v">v1.10 (consumo)</div></div>
+      <div><div class="k">Data</div><div class="v">13/06/2026</div></div>
+    </div>
+  </header>
+
+  <p class="lead">Documento gerado a partir do código-fonte
+  <em>“código_versão 1.7_cartões - buzzer - display - relogio - rele - RGB - botao - consumo_rev1”</em>.
+  Reúne a representação visual das conexões e pinos, o esquema funcional em blocos e a lista
+  completa de elementos do projeto.</p>
+
+  <div class="toc">
+    <strong>Sumário</strong>
+    <ol>
+      <li><a href="#visao">Visão geral do funcionamento</a></li>
+      <li><a href="#diag1">Diagrama 1 — Mapa de pinos e conexões</a></li>
+      <li><a href="#diag2">Diagrama 2 — Esquema funcional em blocos</a></li>
+      <li><a href="#subcircuito">Sub-circuito: botão, relé, ventoinha e LEDs</a></li>
+      <li><a href="#elementos">Lista de elementos (hardware)</a></li>
+      <li><a href="#software">Bibliotecas e parâmetros</a></li>
+      <li><a href="#pinos">Tabela completa de pinos</a></li>
+      <li><a href="#relatorio">Lógica do relatório de consumo</a></li>
+      <li><a href="#notas">Observações de montagem</a></li>
+    </ol>
+  </div>
+
+  <!-- 1. VISÃO GERAL -->
+  <h2 id="visao"><span class="num">1.</span>Visão geral do funcionamento</h2>
+  <p>O sistema simula o controle de acesso de uma sala e mede a energia consumida durante o
+  período de uso, gerando ao final um relatório de consumo e economia.</p>
+  <ol class="flow">
+    <li><b>Em repouso:</b> LED RGB azul; o LCD alterna entre “PROJ. INTEGRADOR / APROXIMAR CARTAO” e a data/hora do RTC (a cada 3 s).</li>
+    <li><b>Cartão válido:</b> 1 bipe, LED verde, o relé liga a carga (ar-condicionado + lâmpadas), o servo abre a cancela (0°) e fecha (90°); inicia a contagem de tempo e exibe “SALA OCUPADA”.</li>
+    <li><b>Cartão inválido:</b> 2 bipes, LED vermelho e mensagem “ACESSO NEGADO!”.</li>
+    <li><b>Botão pressionado:</b> desliga o relé, LED azul e exibe o <b>relatório</b> (tempo, kWh, gasto em R$ e valor economizado); retorna ao estado de repouso.</li>
+  </ol>
+
+  <!-- 2. DIAGRAMA 1 -->
+  <h2 id="diag1"><span class="num">2.</span>Diagrama 1 — Mapa de pinos e conexões</h2>
+  <div class="diagram-card">
+<svg width="100%" viewBox="0 0 680 412" role="img">
+<title>Mapa de pinos e conexões do projeto de controle de acesso</title>
+<desc>Arduino Uno ao centro com módulos RFID, RTC e LCD à esquerda e LED RGB, servo, buzzer, relé e botão à direita.</desc>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M2 1L8 5L2 9" fill="none" stroke="context-stroke" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></marker></defs>
+<text class="th" x="20" y="46">Mapa de Pinos e Conexões</text>
+<text class="ts" x="20" y="62">Projeto Integrador — Controle de Acesso · Arduino Uno</text>
+<line x1="210" y1="95" x2="275" y2="95" stroke="#5B8FD6" stroke-width="2" stroke-linecap="round"/>
+<line x1="210" y1="117" x2="275" y2="117" stroke="#5B8FD6" stroke-width="2" stroke-linecap="round"/>
+<line x1="210" y1="139" x2="275" y2="139" stroke="#5B8FD6" stroke-width="2" stroke-linecap="round"/>
+<line x1="210" y1="161" x2="275" y2="161" stroke="#5B8FD6" stroke-width="2" stroke-linecap="round"/>
+<line x1="210" y1="183" x2="275" y2="183" stroke="#5B8FD6" stroke-width="2" stroke-linecap="round"/>
+<line x1="210" y1="205" x2="275" y2="205" stroke="#E0775B" stroke-width="2" stroke-linecap="round"/>
+<line x1="210" y1="235" x2="275" y2="235" stroke="#3AA39A" stroke-width="2" stroke-linecap="round"/>
+<line x1="210" y1="257" x2="275" y2="257" stroke="#3AA39A" stroke-width="2" stroke-linecap="round"/>
+<line x1="210" y1="279" x2="275" y2="279" stroke="#3AA39A" stroke-width="2" stroke-linecap="round"/>
+<line x1="210" y1="309" x2="275" y2="309" stroke="#9B72CF" stroke-width="2" stroke-linecap="round"/>
+<line x1="210" y1="331" x2="275" y2="331" stroke="#9B72CF" stroke-width="2" stroke-linecap="round"/>
+<line x1="405" y1="95" x2="470" y2="95" stroke="#52A36B" stroke-width="2" stroke-linecap="round"/>
+<line x1="405" y1="117" x2="470" y2="117" stroke="#52A36B" stroke-width="2" stroke-linecap="round"/>
+<line x1="405" y1="139" x2="470" y2="139" stroke="#52A36B" stroke-width="2" stroke-linecap="round"/>
+<line x1="405" y1="185" x2="470" y2="185" stroke="#E0A33E" stroke-width="2" stroke-linecap="round"/>
+<line x1="405" y1="235" x2="470" y2="235" stroke="#52A36B" stroke-width="2" stroke-linecap="round"/>
+<line x1="405" y1="285" x2="470" y2="285" stroke="#52A36B" stroke-width="2" stroke-linecap="round"/>
+<line x1="405" y1="331" x2="470" y2="331" stroke="#52A36B" stroke-width="2" stroke-linecap="round"/>
+<rect x="275" y="75" width="130" height="285" rx="10" fill="var(--color-background-secondary)" stroke="var(--color-border-primary)" stroke-width="1"/>
+<text class="th" x="340" y="206" text-anchor="middle">ARDUINO</text>
+<text class="th" x="340" y="224" text-anchor="middle">UNO</text>
+<text class="ts" x="340" y="242" text-anchor="middle">ATmega328P</text>
+<rect x="275" y="86" width="26" height="18" rx="3" fill="var(--color-background-primary)" stroke="var(--color-border-secondary)" stroke-width="0.5"/><text class="ts" x="288" y="99" text-anchor="middle">13</text>
+<rect x="275" y="108" width="26" height="18" rx="3" fill="var(--color-background-primary)" stroke="var(--color-border-secondary)" stroke-width="0.5"/><text class="ts" x="288" y="121" text-anchor="middle">12</text>
+<rect x="275" y="130" width="26" height="18" rx="3" fill="var(--color-background-primary)" stroke="var(--color-border-secondary)" stroke-width="0.5"/><text class="ts" x="288" y="143" text-anchor="middle">11</text>
+<rect x="275" y="152" width="26" height="18" rx="3" fill="var(--color-background-primary)" stroke="var(--color-border-secondary)" stroke-width="0.5"/><text class="ts" x="288" y="165" text-anchor="middle">10</text>
+<rect x="275" y="174" width="26" height="18" rx="3" fill="var(--color-background-primary)" stroke="var(--color-border-secondary)" stroke-width="0.5"/><text class="ts" x="288" y="187" text-anchor="middle">9</text>
+<rect x="275" y="196" width="26" height="18" rx="3" fill="var(--color-background-primary)" stroke="var(--color-border-secondary)" stroke-width="0.5"/><text class="ts" x="288" y="209" text-anchor="middle">3V3</text>
+<rect x="275" y="226" width="26" height="18" rx="3" fill="var(--color-background-primary)" stroke="var(--color-border-secondary)" stroke-width="0.5"/><text class="ts" x="288" y="239" text-anchor="middle">8</text>
+<rect x="275" y="248" width="26" height="18" rx="3" fill="var(--color-background-primary)" stroke="var(--color-border-secondary)" stroke-width="0.5"/><text class="ts" x="288" y="261" text-anchor="middle">7</text>
+<rect x="275" y="270" width="26" height="18" rx="3" fill="var(--color-background-primary)" stroke="var(--color-border-secondary)" stroke-width="0.5"/><text class="ts" x="288" y="283" text-anchor="middle">4</text>
+<rect x="275" y="300" width="26" height="18" rx="3" fill="var(--color-background-primary)" stroke="var(--color-border-secondary)" stroke-width="0.5"/><text class="ts" x="288" y="313" text-anchor="middle">A4</text>
+<rect x="275" y="322" width="26" height="18" rx="3" fill="var(--color-background-primary)" stroke="var(--color-border-secondary)" stroke-width="0.5"/><text class="ts" x="288" y="335" text-anchor="middle">A5</text>
+<rect x="379" y="86" width="26" height="18" rx="3" fill="var(--color-background-primary)" stroke="var(--color-border-secondary)" stroke-width="0.5"/><text class="ts" x="392" y="99" text-anchor="middle">6</text>
+<rect x="379" y="108" width="26" height="18" rx="3" fill="var(--color-background-primary)" stroke="var(--color-border-secondary)" stroke-width="0.5"/><text class="ts" x="392" y="121" text-anchor="middle">5</text>
+<rect x="379" y="130" width="26" height="18" rx="3" fill="var(--color-background-primary)" stroke="var(--color-border-secondary)" stroke-width="0.5"/><text class="ts" x="392" y="143" text-anchor="middle">2</text>
+<rect x="379" y="176" width="26" height="18" rx="3" fill="var(--color-background-primary)" stroke="var(--color-border-secondary)" stroke-width="0.5"/><text class="ts" x="392" y="189" text-anchor="middle">3</text>
+<rect x="379" y="226" width="26" height="18" rx="3" fill="var(--color-background-primary)" stroke="var(--color-border-secondary)" stroke-width="0.5"/><text class="ts" x="392" y="239" text-anchor="middle">A0</text>
+<rect x="379" y="276" width="26" height="18" rx="3" fill="var(--color-background-primary)" stroke="var(--color-border-secondary)" stroke-width="0.5"/><text class="ts" x="392" y="289" text-anchor="middle">A1</text>
+<rect x="379" y="322" width="26" height="18" rx="3" fill="var(--color-background-primary)" stroke="var(--color-border-secondary)" stroke-width="0.5"/><text class="ts" x="392" y="335" text-anchor="middle">A2</text>
+<text class="ts" x="242" y="89" text-anchor="middle">SCK</text>
+<text class="ts" x="242" y="111" text-anchor="middle">MISO</text>
+<text class="ts" x="242" y="133" text-anchor="middle">MOSI</text>
+<text class="ts" x="242" y="155" text-anchor="middle">SDA</text>
+<text class="ts" x="242" y="177" text-anchor="middle">RST</text>
+<text class="ts" x="242" y="199" text-anchor="middle">3V3</text>
+<text class="ts" x="242" y="229" text-anchor="middle">CLK</text>
+<text class="ts" x="242" y="251" text-anchor="middle">DAT</text>
+<text class="ts" x="242" y="273" text-anchor="middle">CE</text>
+<text class="ts" x="242" y="303" text-anchor="middle">SDA</text>
+<text class="ts" x="242" y="325" text-anchor="middle">SCL</text>
+<text class="ts" x="437" y="89" text-anchor="middle">R</text>
+<text class="ts" x="437" y="111" text-anchor="middle">G</text>
+<text class="ts" x="437" y="133" text-anchor="middle">B</text>
+<text class="ts" x="437" y="179" text-anchor="middle">SIG</text>
+<text class="ts" x="437" y="229" text-anchor="middle">I/O</text>
+<text class="ts" x="437" y="279" text-anchor="middle">IN</text>
+<text class="ts" x="437" y="325" text-anchor="middle">I/O</text>
+<rect class="box" x="20" y="84" width="190" height="130" rx="6"/>
+<text class="th" x="30" y="106">RFID-RC522</text>
+<text class="ts" x="30" y="124">Leitor 13,56 MHz</text>
+<text class="ts" x="30" y="206">VCC→3V3 · GND→GND</text>
+<rect class="box" x="20" y="224" width="190" height="66" rx="6"/>
+<text class="th" x="30" y="246">RTC DS1302</text>
+<text class="ts" x="30" y="264">Relógio + bateria</text>
+<text class="ts" x="30" y="282">VCC→5V · GND→GND</text>
+<rect class="box" x="20" y="300" width="190" height="56" rx="6"/>
+<text class="th" x="30" y="320">LCD I2C 16x2</text>
+<text class="ts" x="30" y="338">Display · 0x27</text>
+<text class="ts" x="30" y="352">VCC→5V · GND→GND</text>
+<rect class="box" x="470" y="84" width="190" height="66" rx="6"/>
+<text class="th" x="480" y="106">LED RGB</text>
+<text class="ts" x="480" y="124">Cátodo comum</text>
+<text class="ts" x="480" y="142">R/G/B + resistores</text>
+<rect class="box" x="470" y="166" width="190" height="42" rx="6"/>
+<text class="th" x="480" y="186">Micro Servo 9g</text>
+<text class="ts" x="480" y="202">Sinal D3 · V+ 5V</text>
+<rect class="box" x="470" y="218" width="190" height="42" rx="6"/>
+<text class="th" x="480" y="238">Buzzer</text>
+<text class="ts" x="480" y="254">Ativo · I/O em A0</text>
+<rect class="box" x="470" y="268" width="190" height="42" rx="6"/>
+<text class="th" x="480" y="288">Módulo Relé</text>
+<text class="ts" x="480" y="304">IN=A1 · HIGH liga</text>
+<rect class="box" x="470" y="314" width="190" height="44" rx="6"/>
+<text class="th" x="480" y="334">Botão (desliga)</text>
+<text class="ts" x="480" y="350">p/ GND · pull-up int.</text>
+<rect x="25" y="372" width="16" height="11" rx="2" fill="#5B8FD6"/><text class="ts" x="47" y="381">SPI (RC522)</text>
+<rect x="134" y="372" width="16" height="11" rx="2" fill="#3AA39A"/><text class="ts" x="156" y="381">3 fios (RTC)</text>
+<rect x="250" y="372" width="16" height="11" rx="2" fill="#9B72CF"/><text class="ts" x="272" y="381">I2C (LCD)</text>
+<rect x="345" y="372" width="16" height="11" rx="2" fill="#52A36B"/><text class="ts" x="367" y="381">I/O digital</text>
+<rect x="454" y="372" width="16" height="11" rx="2" fill="#E0A33E"/><text class="ts" x="476" y="381">PWM (servo)</text>
+<rect x="563" y="372" width="16" height="11" rx="2" fill="#E0775B"/><text class="ts" x="585" y="381">3,3 V</text>
+</svg>
+  </div>
+  <div class="cap"><b>Figura 1.</b> Cada fio mostra o pino do módulo (lado externo) e o pino do Arduino (lado da placa). Cores indicam o tipo de sinal.</div>
+
+  <!-- 3. DIAGRAMA 2 -->
+  <h2 id="diag2"><span class="num">3.</span>Diagrama 2 — Esquema funcional em blocos</h2>
+  <div class="diagram-card">
+<svg width="100%" viewBox="0 0 680 456" role="img">
+<title>Diagrama esquemático em blocos funcionais</title>
+<desc>Fluxo Entradas para Controlador para Saídas, com bloco de alimentação na base.</desc>
+<defs><marker id="arrow2" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M2 1L8 5L2 9" fill="none" stroke="context-stroke" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></marker></defs>
+<text class="th" x="20" y="46">Diagrama Esquemático — Blocos Funcionais</text>
+<text class="ts" x="20" y="62">Entradas → Controlador → Saídas · Arduino Uno</text>
+<line x1="180" y1="112" x2="253" y2="112" stroke="#5B8FD6" stroke-width="1.5" marker-end="url(#arrow2)"/>
+<line x1="180" y1="187" x2="253" y2="187" stroke="#52A36B" stroke-width="1.5" marker-end="url(#arrow2)"/>
+<line x1="180" y1="259" x2="253" y2="259" stroke="#3AA39A" stroke-width="1.5" marker-start="url(#arrow2)" marker-end="url(#arrow2)"/>
+<text class="ts" x="217" y="106" text-anchor="middle">SPI</text>
+<text class="ts" x="217" y="181" text-anchor="middle">A2</text>
+<text class="ts" x="217" y="253" text-anchor="middle">3 fios</text>
+<line x1="427" y1="100" x2="503" y2="100" stroke="#E0775B" stroke-width="1.5" marker-end="url(#arrow2)"/>
+<line x1="427" y1="162" x2="503" y2="162" stroke="#E0A33E" stroke-width="1.5" marker-end="url(#arrow2)"/>
+<line x1="427" y1="218" x2="503" y2="218" stroke="#52A36B" stroke-width="1.5" marker-end="url(#arrow2)"/>
+<line x1="427" y1="272" x2="503" y2="272" stroke="#52A36B" stroke-width="1.5" marker-end="url(#arrow2)"/>
+<line x1="427" y1="327" x2="503" y2="327" stroke="#9B72CF" stroke-width="1.5" marker-start="url(#arrow2)" marker-end="url(#arrow2)"/>
+<text class="ts" x="465" y="94" text-anchor="middle">A1</text>
+<text class="ts" x="465" y="156" text-anchor="middle">D3 PWM</text>
+<text class="ts" x="465" y="212" text-anchor="middle">RGB</text>
+<text class="ts" x="465" y="266" text-anchor="middle">A0</text>
+<text class="ts" x="465" y="321" text-anchor="middle">I2C</text>
+<line x1="340" y1="378" x2="340" y2="347" stroke="#E0775B" stroke-width="1.5" marker-end="url(#arrow2)"/>
+<rect x="255" y="80" width="172" height="265" rx="8" fill="var(--color-background-secondary)" stroke="var(--color-border-primary)" stroke-width="1"/>
+<text class="th" x="341" y="200" text-anchor="middle">ARDUINO UNO</text>
+<text class="ts" x="341" y="220" text-anchor="middle">ATmega328P · 16 MHz</text>
+<text class="ts" x="341" y="238" text-anchor="middle">Controlador (5 V)</text>
+<rect class="box" x="20" y="80" width="160" height="64" rx="6"/>
+<text class="th" x="30" y="102">RFID-RC522</text>
+<text class="ts" x="30" y="120">SDA10 · SCK13 · RST9</text>
+<text class="ts" x="30" y="136">MOSI11 · MISO12 · 3V3</text>
+<rect class="box" x="20" y="164" width="160" height="46" rx="6"/>
+<text class="th" x="30" y="186">Botão desliga</text>
+<text class="ts" x="30" y="204">A2 · pull-up interno</text>
+<rect class="box" x="20" y="230" width="160" height="58" rx="6"/>
+<text class="th" x="30" y="254">RTC DS1302</text>
+<text class="ts" x="30" y="274">CE4 · DAT7 · CLK8</text>
+<rect class="box" x="505" y="72" width="155" height="56" rx="6"/>
+<text class="th" x="515" y="92">Módulo Relé</text>
+<text class="ts" x="515" y="110">IN A1 · HIGH liga</text>
+<text class="ts" x="515" y="124">→ AC + lâmpadas</text>
+<rect class="box" x="505" y="140" width="155" height="44" rx="6"/>
+<text class="th" x="515" y="162">Micro Servo 9g</text>
+<text class="ts" x="515" y="180">Sinal D3 (PWM)</text>
+<rect class="box" x="505" y="196" width="155" height="44" rx="6"/>
+<text class="th" x="515" y="218">LED RGB</text>
+<text class="ts" x="515" y="236">R6 · G5 · B2</text>
+<rect class="box" x="505" y="252" width="155" height="40" rx="6"/>
+<text class="th" x="515" y="274">Buzzer</text>
+<text class="ts" x="515" y="290">Pino A0</text>
+<rect class="box" x="505" y="304" width="155" height="46" rx="6"/>
+<text class="th" x="515" y="326">LCD I2C 16x2</text>
+<text class="ts" x="515" y="344">A4/A5 · end. 0x27</text>
+<rect x="150" y="378" width="410" height="46" rx="6" fill="var(--color-background-secondary)" stroke="var(--color-border-primary)" stroke-width="1"/>
+<text class="th" x="355" y="400" text-anchor="middle">Alimentação</text>
+<text class="ts" x="355" y="418" text-anchor="middle">USB 5 V → trilho 5 V · 3V3 (RC522) · GND comum</text>
+</svg>
+  </div>
+  <div class="cap"><b>Figura 2.</b> Arquitetura do sistema: blocos de entrada (esquerda), controlador (centro), saídas (direita) e alimentação (base). As setas duplas indicam comunicação bidirecional (RTC e LCD).</div>
+
+  <!-- 4. SUB-CIRCUITO -->
+  <h2 id="subcircuito"><span class="num">4.</span>Sub-circuito: botão, relé, ventoinha e LEDs</h2>
+  <p>Detalhe do acionamento da carga. A ventoinha é chaveada pelos <b>contatos secos</b> do relé,
+  com fonte externa de 12 V isolada do Arduino. Em <b>repouso</b> o relé fica desenergizado
+  (COM–NC, NO aberto), então a ventoinha já nasce <b>desligada</b>; ela só liga quando
+  <code>A1 = HIGH</code> (cartão válido) fecha o contato COM–NO.</p>
+  <div class="diagram-card">
+<svg width="100%" viewBox="0 0 680 500" role="img">
+<title>Esquema revisado: ventoinha desligada no repouso, ligada só com cartão válido</title>
+<desc>O relé é mostrado em repouso (desenergizado): o contato comum COM fica em NC e o contato NO (que alimenta a ventoinha) fica aberto, então a ventoinha está desligada ao ligar. Só quando A1 vai a HIGH (cartão válido) o relé energiza, fecha COM-NO e liga a ventoinha.</desc>
+<defs><marker id="arrow3" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M2 1L8 5L2 9" fill="none" stroke="context-stroke" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></marker></defs>
+<text class="th" x="20" y="36">Esquema Revisado — Botão, Relé e Ventoinha</text>
+<text class="ts" x="20" y="53">Ventoinha LIGA só com cartão válido · em repouso (ao ligar) fica DESLIGADA</text>
+<text class="ts" x="30" y="80">CONTROLE · 5 V</text>
+<text class="ts" x="650" y="80" text-anchor="end">POTÊNCIA · 12 V (isolada)</text>
+<path d="M150 215 H205 V120 H250" fill="none" stroke="#4F86C6" stroke-width="2"/>
+<path d="M150 250 H250 V262 H270" fill="none" stroke="#4F9D69" stroke-width="2"/>
+<path d="M150 285 H235 V300 H270" fill="none" stroke="#C8463A" stroke-width="2"/>
+<path d="M150 320 H195 V350" fill="none" stroke="#707883" stroke-width="2"/>
+<path d="M270 338 H230 V352" fill="none" stroke="#707883" stroke-width="2"/>
+<path d="M340 120 V148" fill="none" stroke="#707883" stroke-width="2"/>
+<path d="M460 250 H600" fill="none" stroke="#E0822E" stroke-width="2"/>
+<path d="M460 295 H530 V330" fill="none" stroke="#E0822E" stroke-width="2"/>
+<path d="M530 390 H600 V360" fill="none" stroke="#707883" stroke-width="2"/>
+<path d="M600 250 V300" fill="none" stroke="#E0822E" stroke-width="2"/>
+<path d="M600 324 V360" fill="none" stroke="#707883" stroke-width="2"/>
+<rect class="box" x="30" y="160" width="120" height="180" rx="8"/>
+<text class="th" x="90" y="184" text-anchor="middle">ARDUINO UNO</text>
+<text class="ts" x="90" y="200" text-anchor="middle">Controlador 5 V</text>
+<circle cx="150" cy="215" r="2.6" fill="#707883"/><text class="ts" x="144" y="219" text-anchor="end">A2</text>
+<circle cx="150" cy="250" r="2.6" fill="#707883"/><text class="ts" x="144" y="254" text-anchor="end">A1</text>
+<circle cx="150" cy="285" r="2.6" fill="#707883"/><text class="ts" x="144" y="289" text-anchor="end">5V</text>
+<circle cx="150" cy="320" r="2.6" fill="#707883"/><text class="ts" x="144" y="324" text-anchor="end">GND</text>
+<rect class="box" x="270" y="200" width="190" height="160" rx="8"/>
+<text class="th" x="365" y="222" text-anchor="middle">MÓDULO RELÉ</text>
+<text class="ts" x="365" y="238" text-anchor="middle">1 canal — HIGH liga</text>
+<path d="M395 250 V355" fill="none" stroke="#b9b5aa" stroke-width="1" stroke-dasharray="4 4"/>
+<circle cx="270" cy="262" r="2.6" fill="#707883"/><text class="ts" x="278" y="266" text-anchor="start">IN</text>
+<circle cx="270" cy="300" r="2.6" fill="#707883"/><text class="ts" x="278" y="304" text-anchor="start">VCC</text>
+<circle cx="270" cy="338" r="2.6" fill="#707883"/><text class="ts" x="278" y="342" text-anchor="start">GND</text>
+<circle cx="460" cy="250" r="2.6" fill="#707883"/><text class="ts" x="452" y="246" text-anchor="end">COM</text>
+<circle cx="460" cy="295" r="2.6" fill="#707883"/><text class="ts" x="452" y="291" text-anchor="end">NO</text>
+<circle cx="460" cy="335" r="2.6" fill="#707883"/><text class="ts" x="452" y="331" text-anchor="end">NC</text>
+<rect x="310" y="280" width="34" height="38" rx="3" fill="none" stroke="#707883" stroke-width="1"/>
+<text class="ts" x="327" y="332" text-anchor="middle">bobina</text>
+<path d="M344 296 H408" fill="none" stroke="#a8a499" stroke-width="1.2" stroke-dasharray="4 3" marker-end="url(#arrow3)"/>
+<circle cx="415" cy="250" r="2.8" fill="#2d3138"/>
+<path d="M415 250 H460" fill="none" stroke="#2d3138" stroke-width="1.6"/>
+<path d="M415 250 L437 335" fill="none" stroke="#2d3138" stroke-width="2.4"/>
+<path d="M437 335 H460" fill="none" stroke="#2d3138" stroke-width="1.6"/>
+<path d="M445 295 H460" fill="none" stroke="#2d3138" stroke-width="1.6"/>
+<circle cx="445" cy="295" r="2.4" fill="#2d3138"/>
+<path d="M415 250 L445 295" fill="none" stroke="#C8463A" stroke-width="1.3" stroke-dasharray="3 3" marker-end="url(#arrow3)"/>
+<text class="ts" x="412" y="352" text-anchor="middle">repouso = COM–NC</text>
+<path d="M250 120 H275" fill="none" stroke="#4F86C6" stroke-width="2"/>
+<path d="M275 120 V108" fill="none" stroke="#4F86C6" stroke-width="2"/>
+<path d="M315 120 H340" fill="none" stroke="#707883" stroke-width="2"/>
+<path d="M315 120 V108" fill="none" stroke="#707883" stroke-width="2"/>
+<path d="M268 102 H322" fill="none" stroke="#5b6065" stroke-width="2"/>
+<path d="M295 102 V90" fill="none" stroke="#5b6065" stroke-width="1.6"/>
+<path d="M283 90 H307" fill="none" stroke="#5b6065" stroke-width="2.4"/>
+<circle cx="250" cy="120" r="3" fill="#4F86C6"/><circle cx="340" cy="120" r="3" fill="#707883"/>
+<text class="th" x="295" y="168" text-anchor="middle">BOTÃO (desliga)</text>
+<text class="ts" x="295" y="184" text-anchor="middle">A2 · INPUT_PULLUP</text>
+<path d="M340 148 V156 M330 156 H350 M334 160 H346 M338 164 H342" fill="none" stroke="#707883" stroke-width="1.4"/>
+<path d="M195 350 V358 M185 358 H205 M189 362 H201 M192 366 H198" fill="none" stroke="#707883" stroke-width="1.4"/>
+<path d="M230 352 V360 M220 360 H240 M224 364 H236 M227 368 H233" fill="none" stroke="#707883" stroke-width="1.4"/>
+<text class="th" x="600" y="236" text-anchor="middle">Fonte 12 V</text>
+<path d="M588 300 H612 M594 308 H606 M588 316 H612 M594 324 H606" fill="none" stroke="#5b6065" stroke-width="2"/>
+<text class="ts" x="618" y="304" text-anchor="start">+</text>
+<text class="ts" x="618" y="322" text-anchor="start">−</text>
+<circle cx="530" cy="360" r="30" fill="var(--color-background-secondary)" stroke="var(--color-border-primary)" stroke-width="1"/>
+<text class="th" x="530" y="366" text-anchor="middle">M</text>
+<text class="ts" x="538" y="336" text-anchor="start">+</text>
+<text class="ts" x="538" y="390" text-anchor="start">−</text>
+<text class="ts" x="530" y="406" text-anchor="middle">Ventoinha 12 V</text>
+<text class="ts" x="530" y="420" text-anchor="middle">(desligada no repouso)</text>
+<circle cx="36" cy="439" r="5" fill="#4F9D69"/>
+<text class="ts" x="48" y="443" text-anchor="start">Repouso / ao ligar: relé OFF → COM–NC → ventoinha DESLIGADA</text>
+<circle cx="36" cy="457" r="5" fill="#E0822E"/>
+<text class="ts" x="48" y="461" text-anchor="start">Cartão válido (A1 = HIGH): relé ON → COM–NO → ventoinha LIGA</text>
+<rect class="box" x="30" y="470" width="620" height="24" rx="5"/>
+<text class="ts" x="40" y="486" text-anchor="start">⚠ Use módulo HIGH-trigger. Se for LOW-trigger, a ventoinha liga ao energizar → inverta a lógica no código.</text>
+</svg>
+  </div>
+  <div class="cap"><b>Figura 3.</b> Relé em repouso (desenergizado): ventoinha desligada. Só o cartão válido (A1 = HIGH) fecha COM–NO e liga a ventoinha.</div>
+  <div class="notes">
+    <ul>
+      <li><strong>Correção aplicada no código:</strong> a lógica foi ajustada para módulo <b>LOW-trigger</b> (<code>#define RELE_LIGA LOW</code> / <code>RELE_DESLIGA HIGH</code>), impedindo que a ventoinha ligue sozinha na energização. Para módulo HIGH-trigger, basta inverter os dois <code>#define</code>.</li>
+      <li><strong>Fonte da ventoinha:</strong> 12 V DC externa; os contatos COM/NO isolam o Arduino. Para outra tensão (5 V ou 220 V AC) a topologia COM/NO é a mesma.</li>
+      <li><strong>Recomendado:</strong> diodo de roda-livre (1N4007) em paralelo com a ventoinha (catodo no +) para proteger os contatos do pico indutivo do motor.</li>
+    </ul>
+  </div>
+
+  <h3>Acionando a ventoinha e os LEDs juntos</h3>
+  <p>Para que a ventoinha e os LEDs liguem juntos com o cartão, os dois ficam <b>em paralelo no
+  12 V chaveado pelo relé</b> (saída do contato NO). O Arduino não precisa de mais pinos — o relé
+  liga e desliga tudo de uma vez. Cada LED tem o seu próprio resistor (~470 Ω): nunca ligue LED
+  direto nos 12 V, nem vários LEDs em paralelo sem resistor individual.</p>
+  <div class="diagram-card">
+<svg width="100%" viewBox="0 0 680 488" role="img">
+<title>Esquema completo: relé aciona ventoinha e LEDs em paralelo no 12 V chaveado</title>
+<desc>Lado de controle: Arduino A1 ao IN do relé (LOW-trigger), 5V ao VCC, GND comum, botão em A2. Lado de potência: bateria 12V no COM; o contato NO alimenta um barramento +12V chaveado de onde saem, em paralelo, a ventoinha e dois ramos de LED, cada um com resistor; todos retornam ao negativo da bateria.</desc>
+<defs><marker id="arrow4" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M2 1L8 5L2 9" fill="none" stroke="context-stroke" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></marker></defs>
+<text class="th" x="20" y="34">Esquema de Conexões — Sistema Completo</text>
+<text class="ts" x="20" y="51">Ventoinha + LEDs ligam juntos no 12 V chaveado pelo relé (cartão válido)</text>
+<text class="ts" x="30" y="70">CONTROLE · 5 V</text>
+<text class="ts" x="660" y="70" text-anchor="end">POTÊNCIA · 12 V</text>
+<path d="M140 185 H160 V95 H180" fill="none" stroke="#4F86C6" stroke-width="2"/>
+<path d="M140 220 H270 V205 H300" fill="none" stroke="#4F9D69" stroke-width="2"/>
+<path d="M140 255 H258 V240 H300" fill="none" stroke="#C8463A" stroke-width="2"/>
+<path d="M140 285 H168 V308" fill="none" stroke="#707883" stroke-width="2"/>
+<path d="M300 275 H284 V300" fill="none" stroke="#707883" stroke-width="2"/>
+<path d="M270 95 V115" fill="none" stroke="#707883" stroke-width="2"/>
+<path d="M440 205 H650" fill="none" stroke="#E0822E" stroke-width="2"/>
+<path d="M440 245 H468 V270" fill="none" stroke="#E0822E" stroke-width="2"/>
+<path d="M468 270 H620" fill="none" stroke="#E0822E" stroke-width="2.5"/>
+<path d="M468 420 H620" fill="none" stroke="#707883" stroke-width="2.5"/>
+<path d="M650 205 V252" fill="none" stroke="#E0822E" stroke-width="2"/>
+<path d="M650 276 V420 H620" fill="none" stroke="#707883" stroke-width="2"/>
+<path d="M512 270 V322" fill="none" stroke="#E0822E" stroke-width="2"/>
+<circle cx="512" cy="341" r="19" fill="var(--color-background-secondary)" stroke="var(--color-border-primary)" stroke-width="1"/>
+<text class="th" x="512" y="347" text-anchor="middle">M</text>
+<path d="M512 360 V420" fill="none" stroke="#707883" stroke-width="2"/>
+<circle cx="512" cy="270" r="3" fill="#5b6065"/><circle cx="512" cy="420" r="3" fill="#5b6065"/>
+<path d="M560 270 V300" fill="none" stroke="#E0822E" stroke-width="2"/>
+<rect x="554" y="300" width="12" height="26" rx="2" fill="none" stroke="#2d3138" stroke-width="1.3"/>
+<path d="M560 326 V345" fill="none" stroke="#2d3138" stroke-width="1.4"/>
+<path d="M552 345 H568 L560 358 Z" fill="none" stroke="#2d3138" stroke-width="1.4"/>
+<path d="M552 361 H568" fill="none" stroke="#2d3138" stroke-width="1.8"/>
+<path d="M560 361 V420" fill="none" stroke="#707883" stroke-width="2"/>
+<circle cx="560" cy="270" r="3" fill="#5b6065"/><circle cx="560" cy="420" r="3" fill="#5b6065"/>
+<path d="M606 270 V300" fill="none" stroke="#E0822E" stroke-width="2"/>
+<rect x="600" y="300" width="12" height="26" rx="2" fill="none" stroke="#2d3138" stroke-width="1.3"/>
+<path d="M606 326 V345" fill="none" stroke="#2d3138" stroke-width="1.4"/>
+<path d="M598 345 H614 L606 358 Z" fill="none" stroke="#2d3138" stroke-width="1.4"/>
+<path d="M598 361 H614" fill="none" stroke="#2d3138" stroke-width="1.8"/>
+<path d="M606 361 V420" fill="none" stroke="#707883" stroke-width="2"/>
+<circle cx="606" cy="270" r="3" fill="#5b6065"/><circle cx="606" cy="420" r="3" fill="#5b6065"/>
+<rect class="box" x="30" y="150" width="110" height="150" rx="8"/>
+<text class="th" x="85" y="182" text-anchor="middle">ARDUINO</text>
+<text class="th" x="85" y="198" text-anchor="middle">UNO</text>
+<circle cx="140" cy="185" r="2.6" fill="#707883"/><text class="ts" x="134" y="189" text-anchor="end">A2</text>
+<circle cx="140" cy="220" r="2.6" fill="#707883"/><text class="ts" x="134" y="224" text-anchor="end">A1</text>
+<circle cx="140" cy="255" r="2.6" fill="#707883"/><text class="ts" x="134" y="259" text-anchor="end">5V</text>
+<circle cx="140" cy="285" r="2.6" fill="#707883"/><text class="ts" x="134" y="289" text-anchor="end">GND</text>
+<rect class="box" x="300" y="150" width="140" height="160" rx="8"/>
+<text class="th" x="370" y="170" text-anchor="middle">MÓDULO RELÉ</text>
+<text class="ts" x="370" y="186" text-anchor="middle">LOW-trigger (LOW liga)</text>
+<circle cx="300" cy="205" r="2.6" fill="#707883"/><text class="ts" x="308" y="209" text-anchor="start">IN</text>
+<circle cx="300" cy="240" r="2.6" fill="#707883"/><text class="ts" x="308" y="244" text-anchor="start">VCC</text>
+<circle cx="300" cy="275" r="2.6" fill="#707883"/><text class="ts" x="308" y="279" text-anchor="start">GND</text>
+<circle cx="440" cy="205" r="2.6" fill="#707883"/><text class="ts" x="432" y="201" text-anchor="end">COM</text>
+<circle cx="440" cy="245" r="2.6" fill="#707883"/><text class="ts" x="432" y="241" text-anchor="end">NO</text>
+<circle cx="440" cy="280" r="2.6" fill="#707883"/><text class="ts" x="432" y="284" text-anchor="end">NC</text>
+<circle cx="405" cy="205" r="2.6" fill="#2d3138"/>
+<path d="M405 205 L424 280" fill="none" stroke="#2d3138" stroke-width="2.2"/>
+<path d="M424 280 H440" fill="none" stroke="#2d3138" stroke-width="1.5"/>
+<path d="M424 245 H440" fill="none" stroke="#2d3138" stroke-width="1.5"/>
+<circle cx="424" cy="245" r="2.2" fill="#2d3138"/>
+<path d="M405 205 L424 245" fill="none" stroke="#C8463A" stroke-width="1.2" stroke-dasharray="3 3" marker-end="url(#arrow4)"/>
+<text class="ts" x="390" y="300" text-anchor="middle">repouso: COM–NC</text>
+<path d="M180 95 H205" fill="none" stroke="#4F86C6" stroke-width="2"/>
+<path d="M205 95 V83" fill="none" stroke="#4F86C6" stroke-width="2"/>
+<path d="M245 95 H270" fill="none" stroke="#707883" stroke-width="2"/>
+<path d="M245 95 V83" fill="none" stroke="#707883" stroke-width="2"/>
+<path d="M198 77 H252" fill="none" stroke="#5b6065" stroke-width="2"/>
+<path d="M225 77 V66" fill="none" stroke="#5b6065" stroke-width="1.6"/>
+<path d="M213 66 H237" fill="none" stroke="#5b6065" stroke-width="2.4"/>
+<circle cx="180" cy="95" r="3" fill="#4F86C6"/><circle cx="270" cy="95" r="3" fill="#707883"/>
+<text class="ts" x="225" y="130" text-anchor="middle">Botão (A2) — desliga</text>
+<path d="M270 115 V123 M260 123 H280 M264 127 H276 M267 131 H273" fill="none" stroke="#707883" stroke-width="1.4"/>
+<path d="M168 308 V316 M158 316 H178 M162 320 H174 M165 324 H171" fill="none" stroke="#707883" stroke-width="1.4"/>
+<path d="M284 300 V308 M274 308 H294 M278 312 H290 M281 316 H287" fill="none" stroke="#707883" stroke-width="1.4"/>
+<text class="ts" x="150" y="338" text-anchor="start">⏚ = GND comum (Arduino · 5 V)</text>
+<path d="M638 252 H662 M644 260 H656 M638 268 H662 M644 276 H656" fill="none" stroke="#5b6065" stroke-width="2"/>
+<text class="th" x="650" y="236" text-anchor="middle">12 V</text>
+<text class="ts" x="666" y="210" text-anchor="start">+</text>
+<text class="ts" x="666" y="364" text-anchor="start">−</text>
+<text class="ts" x="520" y="200" text-anchor="middle">+12 V da bateria → COM</text>
+<text class="ts" x="468" y="261" text-anchor="start">+12 V chaveado (NO)</text>
+<text class="ts" x="468" y="437" text-anchor="start">− 12 V (à bateria)</text>
+<text class="ts" x="360" y="456" text-anchor="middle">Ventoinha e LEDs em paralelo · cada LED com seu resistor (~470 Ω)</text>
+<text class="ts" x="360" y="471" text-anchor="middle">Ambos acendem juntos quando o relé é acionado (cartão válido)</text>
+</svg>
+  </div>
+  <div class="cap"><b>Figura 4.</b> Sistema completo: bateria (+) → COM; o contato NO alimenta o barramento +12 V chaveado, de onde saem em paralelo a ventoinha e os ramos de LED (resistor + LED); retorno ao (−) da bateria.</div>
+
+  <h3>Tabela de conexões</h3>
+  <table>
+    <caption>Lado de controle (5 V).</caption>
+    <thead><tr><th>De (Arduino)</th><th>Para</th></tr></thead>
+    <tbody>
+      <tr><td class="pin">A1</td><td>IN do relé</td></tr>
+      <tr><td class="pin">5V</td><td>VCC do relé</td></tr>
+      <tr><td class="pin">GND</td><td>GND do relé (terra comum)</td></tr>
+      <tr><td class="pin">A2</td><td>Botão — o outro terminal do botão vai ao GND</td></tr>
+    </tbody>
+  </table>
+  <table>
+    <caption>Lado de potência (12 V).</caption>
+    <thead><tr><th>De</th><th>Para</th></tr></thead>
+    <tbody>
+      <tr><td>Bateria (+)</td><td class="pin">COM</td></tr>
+      <tr><td class="pin">NO</td><td>Nó “+12 V chaveado”</td></tr>
+      <tr><td>+12 V chaveado</td><td>Ventoinha (+) e cada resistor de LED (em paralelo)</td></tr>
+      <tr><td>Ventoinha (−) e cada LED (catodo)</td><td>Retorno ao (−) da bateria</td></tr>
+    </tbody>
+  </table>
+  <div class="notes">
+    <ul>
+      <li><strong>Nó comum após o NO:</strong> junte ali o positivo da ventoinha e a perna “+” de todos os ramos de LED (resistor → LED); use outro nó comum no retorno ao (−) da bateria.</li>
+      <li><strong>Polaridade dos LEDs:</strong> perna maior (anodo) para o lado do resistor/+12 V; lado chato (catodo) para o negativo.</li>
+      <li><strong>Terras isolados:</strong> o GND do Arduino e o (−) da bateria não precisam se tocar — os contatos do relé isolam os dois lados.</li>
+    </ul>
+  </div>
+
+  <!-- 5. ELEMENTOS -->
+  <h2 id="elementos"><span class="num">5.</span>Lista de elementos (hardware)</h2>
+  <table>
+    <caption>Componentes físicos do projeto e respectiva função.</caption>
+    <thead><tr><th style="width:34px">#</th><th>Componente</th><th>Função no projeto</th><th>Alimentação</th></tr></thead>
+    <tbody>
+      <tr><td>1</td><td><b>Arduino Uno</b> (ATmega328P)</td><td>Controlador central do sistema</td><td>5 V (USB)</td></tr>
+      <tr><td>2</td><td><b>Módulo RFID-RC522</b></td><td>Leitura dos cartões de acesso (13,56 MHz, SPI)</td><td><b>3,3 V</b></td></tr>
+      <tr><td>3</td><td><b>Cartões / Tags RFID</b></td><td>Credenciais de acesso (2 UIDs cadastrados)</td><td>—</td></tr>
+      <tr><td>4</td><td><b>RTC DS1302</b></td><td>Relógio de tempo real (data/hora) + bateria de backup</td><td>5 V</td></tr>
+      <tr><td>5</td><td><b>Display LCD 16×2 I2C</b> (end. 0x27)</td><td>Telas de status e relatório de consumo</td><td>5 V</td></tr>
+      <tr><td>6</td><td><b>LED RGB</b> (cátodo comum)</td><td>Sinalização: azul=ocioso, verde=liberado, vermelho=negado</td><td>via resistores</td></tr>
+      <tr><td>7</td><td><b>Micro Servo 9g</b></td><td>Cancela/barreira física (0°=abre, 90°=fecha)</td><td>5 V</td></tr>
+      <tr><td>8</td><td><b>Buzzer</b> (ativo)</td><td>Bipe de liberado (1×) e de negado (2×)</td><td>5 V</td></tr>
+      <tr><td>9</td><td><b>Módulo Relé</b> (1 canal, Active HIGH)</td><td>Liga/desliga a carga (ar-condicionado + lâmpadas)</td><td>5 V</td></tr>
+      <tr><td>10</td><td><b>Botão</b> (push-button)</td><td>Encerra a sessão e dispara o relatório</td><td>INPUT_PULLUP</td></tr>
+      <tr><td>11</td><td><b>Resistores</b> (220–330 Ω)</td><td>Limitação de corrente do LED RGB</td><td>—</td></tr>
+      <tr><td>12</td><td><b>Carga controlada</b></td><td>Ar-condicionado + 6 lâmpadas LED (demonstrativo)</td><td>rede AC</td></tr>
+    </tbody>
+  </table>
+
+  <!-- 6. SOFTWARE -->
+  <h2 id="software"><span class="num">6.</span>Bibliotecas e parâmetros</h2>
+  <h3>Bibliotecas incluídas (<code>#include</code>)</h3>
+  <div class="chips">
+    <span class="chip"><code>SPI.h</code></span>
+    <span class="chip"><code>MFRC522.h</code></span>
+    <span class="chip"><code>Servo.h</code></span>
+    <span class="chip"><code>Wire.h</code></span>
+    <span class="chip"><code>LiquidCrystal_I2C.h</code></span>
+    <span class="chip"><code>RtcDS1302.h</code></span>
+    <span class="chip"><code>ThreeWire.h</code></span>
+  </div>
+
+  <h3>Parâmetros do cálculo de energia</h3>
+  <div class="grid2">
+    <div class="param"><div class="name">POTENCIA_AC_KW</div><div class="val">0,0885 kW</div><div class="desc">1 ar-condicionado</div></div>
+    <div class="param"><div class="name">POTENCIA_LAMPADAS_KW</div><div class="val">0,108 kW</div><div class="desc">6 lâmpadas LED de 18 W</div></div>
+    <div class="param"><div class="name">POTENCIA_TOTAL_KW</div><div class="val">0,1965 kW</div><div class="desc">Soma da carga da sala</div></div>
+    <div class="param"><div class="name">CONSUMO_REFERENCIA_SESSAO</div><div class="val">5,50 kWh</div><div class="desc">Premissa de aula de 1,5 h</div></div>
+    <div class="param"><div class="name">TARIFA_KWH</div><div class="val">R$ 0,682</div><div class="desc">Tarifa de energia</div></div>
+    <div class="param"><div class="name">displayInterval</div><div class="val">3000 ms</div><div class="desc">Troca das telas em repouso</div></div>
+  </div>
+
+  <h3>Cartões RFID cadastrados (UIDs válidos)</h3>
+  <div class="chips">
+    <span class="chip"><code>91 42 91 04</code></span>
+    <span class="chip"><code>77 E7 7B 05</code></span>
+    <span class="chip">qualquer outro → <b>ACESSO NEGADO</b></span>
+  </div>
+
+  <!-- 7. PINOS -->
+  <h2 id="pinos"><span class="num">7.</span>Tabela completa de pinos</h2>
+  <table>
+    <caption>Mapa de ligações entre cada módulo e o Arduino Uno.</caption>
+    <thead><tr><th>Componente</th><th>Pino do módulo</th><th>Pino Arduino</th><th>Barramento / Tipo</th></tr></thead>
+    <tbody>
+      <tr><td>RFID-RC522</td><td>SDA / SS</td><td class="pin">D10</td><td><span class="tag">SPI</span></td></tr>
+      <tr><td>RFID-RC522</td><td>SCK</td><td class="pin">D13</td><td><span class="tag">SPI</span></td></tr>
+      <tr><td>RFID-RC522</td><td>MOSI</td><td class="pin">D11</td><td><span class="tag">SPI</span></td></tr>
+      <tr><td>RFID-RC522</td><td>MISO</td><td class="pin">D12</td><td><span class="tag">SPI</span></td></tr>
+      <tr><td>RFID-RC522</td><td>RST</td><td class="pin">D9</td><td>digital</td></tr>
+      <tr><td>RFID-RC522</td><td>VCC / GND</td><td class="pin">3,3 V / GND</td><td>alimentação</td></tr>
+      <tr><td>RTC DS1302</td><td>CE (RST)</td><td class="pin">D4</td><td>3 fios</td></tr>
+      <tr><td>RTC DS1302</td><td>I/O (DAT)</td><td class="pin">D7</td><td>3 fios</td></tr>
+      <tr><td>RTC DS1302</td><td>SCLK</td><td class="pin">D8</td><td>3 fios</td></tr>
+      <tr><td>LCD I2C 16×2</td><td>SDA</td><td class="pin">A4</td><td><span class="tag">I2C</span></td></tr>
+      <tr><td>LCD I2C 16×2</td><td>SCL</td><td class="pin">A5</td><td><span class="tag">I2C</span></td></tr>
+      <tr><td>LED RGB</td><td>Vermelho (R)</td><td class="pin">D6</td><td>digital</td></tr>
+      <tr><td>LED RGB</td><td>Verde (G)</td><td class="pin">D5</td><td>digital</td></tr>
+      <tr><td>LED RGB</td><td>Azul (B)</td><td class="pin">D2</td><td>digital</td></tr>
+      <tr><td>Micro Servo 9g</td><td>Sinal</td><td class="pin">D3</td><td>PWM</td></tr>
+      <tr><td>Buzzer</td><td>Sinal (+)</td><td class="pin">A0</td><td>digital</td></tr>
+      <tr><td>Módulo Relé</td><td>IN</td><td class="pin">A1</td><td>digital (HIGH liga)</td></tr>
+      <tr><td>Botão</td><td>Terminal 1 → GND</td><td class="pin">A2</td><td>INPUT_PULLUP</td></tr>
+    </tbody>
+  </table>
+  <p class="lead"><b>Pino livre:</b> A3. &nbsp;|&nbsp; <b>Pinos fixos do Uno:</b> SPI = D11/D12/D13; I2C = A4/A5.</p>
+
+  <!-- 8. RELATÓRIO -->
+  <h2 id="relatorio"><span class="num">8.</span>Lógica do relatório de consumo</h2>
+  <p>Quando o botão é pressionado, o programa calcula a duração da sessão e gera o relatório
+  exibido em quatro telas no LCD:</p>
+  <div class="formula">
+    horas = duração_da_sessão (ms) ÷ 1000 ÷ 3600<br>
+    consumo_real (kWh) = POTENCIA_TOTAL_KW × horas <span class="c">// 0,1965 × horas</span><br>
+    custo (R$) = consumo_real × TARIFA_KWH <span class="c">// × 0,682</span><br>
+    economia (kWh) = CONSUMO_REFERENCIA_SESSAO − consumo_real <span class="c">// mínimo 0</span><br>
+    valor_economizado (R$) = economia × TARIFA_KWH
+  </div>
+
+  <!-- 9. NOTAS -->
+  <h2 id="notas"><span class="num">9.</span>Observações de montagem</h2>
+  <div class="notes">
+    <ul>
+      <li><strong>RC522 só em 3,3 V:</strong> ligar o VCC dele em 5 V costuma danificar o módulo.</li>
+      <li><strong>LED RGB precisa de resistores</strong> (220–330 Ω) em cada cor; o código é de <em>cátodo comum</em> (nível ALTO acende), então o pino comum vai ao GND.</li>
+      <li><strong>Relé Active HIGH:</strong> <code>HIGH</code> liga a carga. Se o módulo for <em>active low</em>, a lógica precisa ser invertida no código.</li>
+      <li><strong>Botão em INPUT_PULLUP:</strong> ligar entre <b>A2 e GND</b> (aciona em nível baixo).</li>
+      <li><strong>Corrente:</strong> servo + relé + LCD em 5 V podem exceder o que a porta USB fornece; para a carga real use fonte externa com <b>GND comum</b>.</li>
+    </ul>
+  </div>
+
+  <footer>
+    <span>Projeto Integrador — FAESA 2025 · Controle de Acesso RFID + Eficiência Energética</span>
+    <span>Documentação gerada em 13/06/2026</span>
+  </footer>
+
+</div>
+</body>
+</html>
