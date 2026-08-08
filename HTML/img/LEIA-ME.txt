@@ -1,9 +1,0 @@
-Coloque nesta pasta o arquivo oficial do logotipo da Petrobras com o nome:
-
-    logo-petrobras.png
-
-(de preferencia com fundo transparente)
-
-A apresentacao (../Apresentacao_Seguranca_Digital.html) detecta o arquivo
-automaticamente e passa a exibi-lo na capa e nos rodapes, no lugar da
-versao recriada em SVG.
