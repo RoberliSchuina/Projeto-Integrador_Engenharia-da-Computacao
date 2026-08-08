@@ -107,16 +107,11 @@
     font-size: 24px; font-weight: 300;
     margin-top: 20px; max-width: 720px;
   }
-  .cover .credits {
-    margin-top: 56px;
-    display: flex; align-items: center; gap: 16px;
-    color: rgba(255,255,255,.75); font-size: 15px;
-  }
-  .cover .credits .bar { width: 4px; height: 40px; background: var(--pb-yellow); border-radius: 2px; }
-  .cover .shield {
-    position: absolute; right: 64px; bottom: 84px;
-    font-size: 150px; opacity: .16; filter: grayscale(.1);
-    user-select: none;
+  .cover .hero {
+    position: absolute; right: 40px; top: 50%;
+    transform: translateY(-50%);
+    width: 400px; height: 400px;
+    user-select: none; pointer-events: none;
   }
 
   /* ===== Grades e cartões ===== */
@@ -271,14 +266,62 @@
       <span class="tag">Segurança da Informação</span>
       <h1>Segurança <span class="hl">Digital</span></h1>
       <p class="subtitle">Orientações e dicas de como se proteger no ambiente conectado</p>
-      <div class="credits">
-        <div class="bar"></div>
-        <div>
-          Projeto Integrador — Engenharia da Computação<br>
-          Programa de conscientização em segurança digital
-        </div>
-      </div>
-      <div class="shield">🛡️</div>
+
+      <!-- Ilustração vetorial: escudo digital com trilhas de circuito e cadeado -->
+      <svg class="hero" viewBox="0 0 400 400" aria-hidden="true">
+        <defs>
+          <linearGradient id="gShield" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0" stop-color="#FDC82F"/>
+            <stop offset="1" stop-color="#8FD6AE"/>
+          </linearGradient>
+          <radialGradient id="gGlow" cx=".5" cy=".45" r=".6">
+            <stop offset="0" stop-color="rgba(253,200,47,.28)"/>
+            <stop offset="1" stop-color="rgba(253,200,47,0)"/>
+          </radialGradient>
+        </defs>
+
+        <circle cx="200" cy="195" r="185" fill="url(#gGlow)"/>
+
+        <!-- Trilhas de circuito -->
+        <g stroke="rgba(255,255,255,.38)" stroke-width="2.5" fill="none" stroke-linecap="round">
+          <path d="M200 28 v34"/>
+          <path d="M118 52 l34 34"/>
+          <path d="M282 52 l-34 34"/>
+          <path d="M52 150 h44 l20 20"/>
+          <path d="M348 150 h-44 l-20 20"/>
+          <path d="M52 260 h52 l26 -26"/>
+          <path d="M348 260 h-52 l-26 -26"/>
+          <path d="M140 356 l24 -34"/>
+          <path d="M260 356 l-24 -34"/>
+        </g>
+        <g fill="#FDC82F">
+          <circle cx="200" cy="24" r="6"/>
+          <circle cx="114" cy="48" r="5"/>
+          <circle cx="286" cy="48" r="5"/>
+          <circle cx="48" cy="150" r="6"/>
+          <circle cx="352" cy="150" r="6"/>
+          <circle cx="48" cy="260" r="5"/>
+          <circle cx="352" cy="260" r="5"/>
+          <circle cx="137" cy="360" r="5"/>
+          <circle cx="263" cy="360" r="5"/>
+        </g>
+
+        <!-- Escudo -->
+        <path d="M200 70 L308 108 v92 c0 74 -48 118 -108 138 c-60 -20 -108 -64 -108 -138 v-92 Z"
+              fill="rgba(255,255,255,.08)" stroke="url(#gShield)" stroke-width="7" stroke-linejoin="round"/>
+        <path d="M200 96 L284 126 v76 c0 58 -38 94 -84 111 c-46 -17 -84 -53 -84 -111 v-76 Z"
+              fill="rgba(0,0,0,.14)" stroke="rgba(255,255,255,.30)" stroke-width="2"/>
+
+        <!-- Cadeado -->
+        <rect x="162" y="188" width="76" height="62" rx="12" fill="#FDC82F"/>
+        <path d="M175 188 v-16 a25 25 0 0 1 50 0 v16" fill="none" stroke="#FDC82F" stroke-width="12" stroke-linecap="round"/>
+        <circle cx="200" cy="212" r="9" fill="#00522A"/>
+        <rect x="195" y="216" width="10" height="18" rx="4" fill="#00522A"/>
+
+        <!-- Pulso de verificação -->
+        <path d="M132 292 h34 l12 -20 14 34 12 -22 h44" fill="none"
+              stroke="rgba(255,255,255,.75)" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
     </div>
     <div class="brandbar" style="top:auto;bottom:0"></div>
   </section>
@@ -372,7 +415,52 @@
     <div class="footer"><span>Segurança Digital <span class="dot">●</span> Orientações e dicas de como se proteger</span><span>03</span></div>
   </section>
 
-  <!-- ===== Slide 4 — Vídeo + conclusão ===== -->
+  <!-- ===== Slide 4 — Segurança digital na Petrobras ===== -->
+  <section class="slide">
+    <div class="brandbar"></div>
+    <div class="content">
+      <div class="kicker">Ambiente corporativo</div>
+      <h2>Segurança digital na <em>Petrobras</em></h2>
+      <div class="grid g4" style="grid-template-columns: repeat(3, 1fr);">
+        <div class="card">
+          <div class="ic">🪪</div>
+          <h3>Credenciais são pessoais</h3>
+          <p>Chave e senha corporativas são <strong>individuais e intransferíveis</strong>: nunca compartilhe, nem com colegas ou gestores, e não as reutilize em serviços externos.</p>
+        </div>
+        <div class="card">
+          <div class="ic">🗂️</div>
+          <h3>Classificação da informação</h3>
+          <p>Trate dados conforme a classificação da companhia: informação <strong>não pública</strong> não sai por e‑mail pessoal, pen drive ou aplicativos de mensagem.</p>
+        </div>
+        <div class="card">
+          <div class="ic">🔐</div>
+          <h3>Estação bloqueada</h3>
+          <p>Bloqueie a tela ao se ausentar (<strong>Win + L</strong>) e adote a política de <strong>mesa limpa</strong>: nada de senhas anotadas ou documentos expostos.</p>
+        </div>
+        <div class="card">
+          <div class="ic">🌐</div>
+          <h3>VPN e equipamentos</h3>
+          <p>No trabalho remoto, use somente <strong>equipamentos corporativos com VPN</strong>. Evite redes Wi‑Fi públicas para acessar sistemas da companhia.</p>
+        </div>
+        <div class="card">
+          <div class="ic">🕵️</div>
+          <h3>Setor de energia é alvo</h3>
+          <p>Empresas de energia sofrem <strong>ataques direcionados</strong> e espionagem industrial: desconfie de contatos inesperados pedindo dados técnicos ou comerciais.</p>
+        </div>
+        <div class="card alert">
+          <div class="ic">📢</div>
+          <h3>Reporte imediatamente</h3>
+          <p>Recebeu e‑mail suspeito, perdeu equipamento ou clicou em link malicioso? <strong>Comunique na hora</strong> os canais internos de segurança da informação — reportar rápido limita o dano.</p>
+        </div>
+      </div>
+      <div class="note">
+        <b>Regra de ouro corporativa:</b>&nbsp;na dúvida, não clique, não repasse e não instale — pergunte antes ao time de segurança da informação.
+      </div>
+    </div>
+    <div class="footer"><span>Segurança Digital <span class="dot">●</span> Orientações e dicas de como se proteger</span><span>04</span></div>
+  </section>
+
+  <!-- ===== Slide 5 — Vídeo + conclusão ===== -->
   <section class="slide">
     <div class="brandbar"></div>
     <div class="content">
@@ -404,7 +492,7 @@
         </div>
       </div>
     </div>
-    <div class="footer"><span>Segurança Digital <span class="dot">●</span> Orientações e dicas de como se proteger</span><span>04</span></div>
+    <div class="footer"><span>Segurança Digital <span class="dot">●</span> Orientações e dicas de como se proteger</span><span>05</span></div>
   </section>
 
 </div>
@@ -412,7 +500,7 @@
 <nav class="nav">
   <button id="prev" aria-label="Slide anterior">←</button>
   <div class="dots" id="dots"></div>
-  <span class="counter" id="counter">1/4</span>
+  <span class="counter" id="counter">1/5</span>
   <button id="next" aria-label="Próximo slide">→</button>
 </nav>
 
