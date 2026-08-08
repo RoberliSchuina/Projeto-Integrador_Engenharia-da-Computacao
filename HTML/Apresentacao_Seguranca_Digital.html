@@ -61,7 +61,21 @@
   }
   .footer .dot { color: var(--pb-green); font-weight: 700; }
 
-  /* ===== Logotipo Petrobras (recriado em SVG) ===== */
+  /* ===== Logotipo Petrobras =====
+     Usa a imagem oficial (img/logo-petrobras.png) quando presente;
+     enquanto o arquivo nao existir, exibe a recriacao em SVG. */
+  .logo-img { display: none; }
+  .has-logo-img .logo-img { display: block; }
+  .has-logo-img .logo-fallback { display: none !important; }
+  .cover-logo .logo-img { height: 54px; }
+  .has-logo-img .cover-logo {
+    background: var(--white);
+    padding: 8px 16px;
+    border-radius: 12px;
+    box-shadow: 0 8px 24px rgba(0,0,0,.25);
+  }
+  .footer .logo-img { height: 24px; }
+
   .pblogo { display: inline-flex; align-items: center; gap: 12px; }
   .pblogo .word {
     font-style: italic; font-weight: 800;
@@ -297,8 +311,9 @@
   <!-- ===== Slide 1 — Capa ===== -->
   <section class="slide cover active">
     <div class="pblogo cover-logo">
-      <svg class="mark"><use href="#brmark"/></svg>
-      <span class="word">PETROBRAS</span>
+      <img class="logo-img" src="img/logo-petrobras.png" alt="Petrobras">
+      <svg class="mark logo-fallback"><use href="#brmark"/></svg>
+      <span class="word logo-fallback">PETROBRAS</span>
     </div>
     <div class="content">
       <span class="tag">Segurança da Informação</span>
@@ -405,7 +420,7 @@
         <b>O elo mais fraco é humano:</b>&nbsp;a maioria dos ataques usa engenharia social — urgência, medo ou prêmios — para fazer você agir sem pensar.
       </div>
     </div>
-    <div class="footer"><span class="fleft"><svg class="fmark"><use href="#brmark"/></svg><span class="fword">PETROBRAS</span><span class="dot">●</span> Segurança Digital — Orientações e dicas de como se proteger</span><span>02</span></div>
+    <div class="footer"><span class="fleft"><img class="logo-img" src="img/logo-petrobras.png" alt="Petrobras"><svg class="fmark logo-fallback"><use href="#brmark"/></svg><span class="fword logo-fallback">PETROBRAS</span><span class="dot">●</span> Segurança Digital — Orientações e dicas de como se proteger</span><span>02</span></div>
   </section>
 
   <!-- ===== Slide 3 — Como se proteger ===== -->
@@ -459,7 +474,7 @@
         </div>
       </div>
     </div>
-    <div class="footer"><span class="fleft"><svg class="fmark"><use href="#brmark"/></svg><span class="fword">PETROBRAS</span><span class="dot">●</span> Segurança Digital — Orientações e dicas de como se proteger</span><span>03</span></div>
+    <div class="footer"><span class="fleft"><img class="logo-img" src="img/logo-petrobras.png" alt="Petrobras"><svg class="fmark logo-fallback"><use href="#brmark"/></svg><span class="fword logo-fallback">PETROBRAS</span><span class="dot">●</span> Segurança Digital — Orientações e dicas de como se proteger</span><span>03</span></div>
   </section>
 
   <!-- ===== Slide 4 — Segurança digital na Petrobras ===== -->
@@ -504,7 +519,7 @@
         <b>Regra de ouro corporativa:</b>&nbsp;na dúvida, não clique, não repasse e não instale — pergunte antes ao time de segurança da informação.
       </div>
     </div>
-    <div class="footer"><span class="fleft"><svg class="fmark"><use href="#brmark"/></svg><span class="fword">PETROBRAS</span><span class="dot">●</span> Segurança Digital — Orientações e dicas de como se proteger</span><span>04</span></div>
+    <div class="footer"><span class="fleft"><img class="logo-img" src="img/logo-petrobras.png" alt="Petrobras"><svg class="fmark logo-fallback"><use href="#brmark"/></svg><span class="fword logo-fallback">PETROBRAS</span><span class="dot">●</span> Segurança Digital — Orientações e dicas de como se proteger</span><span>04</span></div>
   </section>
 
   <!-- ===== Slide 5 — Vídeo + conclusão ===== -->
@@ -539,7 +554,7 @@
         </div>
       </div>
     </div>
-    <div class="footer"><span class="fleft"><svg class="fmark"><use href="#brmark"/></svg><span class="fword">PETROBRAS</span><span class="dot">●</span> Segurança Digital — Orientações e dicas de como se proteger</span><span>05</span></div>
+    <div class="footer"><span class="fleft"><img class="logo-img" src="img/logo-petrobras.png" alt="Petrobras"><svg class="fmark logo-fallback"><use href="#brmark"/></svg><span class="fword logo-fallback">PETROBRAS</span><span class="dot">●</span> Segurança Digital — Orientações e dicas de como se proteger</span><span>05</span></div>
   </section>
 
 </div>
@@ -552,6 +567,11 @@
 </nav>
 
 <script>
+  // Usa o logotipo oficial quando img/logo-petrobras.png existir no repositório
+  const logoProbe = new Image();
+  logoProbe.onload = () => document.body.classList.add('has-logo-img');
+  logoProbe.src = 'img/logo-petrobras.png';
+
   const stage = document.getElementById('stage');
   const slides = Array.from(document.querySelectorAll('.slide'));
   const counter = document.getElementById('counter');
