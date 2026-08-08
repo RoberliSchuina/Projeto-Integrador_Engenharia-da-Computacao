@@ -80,9 +80,15 @@
   /* ===== Slide 1 — Capa ===== */
   .cover {
     background:
-      radial-gradient(900px 520px at 110% -20%, rgba(253,200,47,.18), transparent 55%),
-      radial-gradient(700px 500px at -15% 115%, rgba(255,255,255,.08), transparent 60%),
-      linear-gradient(135deg, var(--pb-green) 0%, var(--pb-green-dark) 62%, var(--pb-green-deep) 100%);
+      radial-gradient(760px 520px at -6% -12%, rgba(253,200,47,.38), transparent 58%),
+      radial-gradient(900px 560px at 112% 46%, rgba(0,163,84,.35), transparent 62%),
+      linear-gradient(118deg, #0E5C36 0%, var(--pb-green-dark) 48%, var(--pb-green-deep) 100%);
+  }
+  .cover::before {  /* feixe de luz diagonal, como na foto de referência */
+    content: "";
+    position: absolute; inset: 0;
+    background: linear-gradient(64deg, transparent 30%, rgba(255,255,255,.07) 46%, transparent 62%);
+    pointer-events: none;
   }
   .cover .content { display: flex; flex-direction: column; justify-content: center; }
   .cover .tag {
@@ -107,12 +113,12 @@
     font-size: 24px; font-weight: 300;
     margin-top: 20px; max-width: 720px;
   }
-  .cover .hero {
-    position: absolute; right: 40px; top: 50%;
-    transform: translateY(-50%);
-    width: 400px; height: 400px;
+  .cover .net {
+    position: absolute; inset: 0;
+    width: 100%; height: 100%;
     user-select: none; pointer-events: none;
   }
+  .cover .content { z-index: 2; }
 
   /* ===== Grades e cartões ===== */
   .grid { display: grid; gap: 18px; }
@@ -266,63 +272,72 @@
       <span class="tag">Segurança da Informação</span>
       <h1>Segurança <span class="hl">Digital</span></h1>
       <p class="subtitle">Orientações e dicas de como se proteger no ambiente conectado</p>
-
-      <!-- Ilustração vetorial: escudo digital com trilhas de circuito e cadeado -->
-      <svg class="hero" viewBox="0 0 400 400" aria-hidden="true">
-        <defs>
-          <linearGradient id="gShield" x1="0" y1="0" x2="1" y2="1">
-            <stop offset="0" stop-color="#FDC82F"/>
-            <stop offset="1" stop-color="#8FD6AE"/>
-          </linearGradient>
-          <radialGradient id="gGlow" cx=".5" cy=".45" r=".6">
-            <stop offset="0" stop-color="rgba(253,200,47,.28)"/>
-            <stop offset="1" stop-color="rgba(253,200,47,0)"/>
-          </radialGradient>
-        </defs>
-
-        <circle cx="200" cy="195" r="185" fill="url(#gGlow)"/>
-
-        <!-- Trilhas de circuito -->
-        <g stroke="rgba(255,255,255,.38)" stroke-width="2.5" fill="none" stroke-linecap="round">
-          <path d="M200 28 v34"/>
-          <path d="M118 52 l34 34"/>
-          <path d="M282 52 l-34 34"/>
-          <path d="M52 150 h44 l20 20"/>
-          <path d="M348 150 h-44 l-20 20"/>
-          <path d="M52 260 h52 l26 -26"/>
-          <path d="M348 260 h-52 l-26 -26"/>
-          <path d="M140 356 l24 -34"/>
-          <path d="M260 356 l-24 -34"/>
-        </g>
-        <g fill="#FDC82F">
-          <circle cx="200" cy="24" r="6"/>
-          <circle cx="114" cy="48" r="5"/>
-          <circle cx="286" cy="48" r="5"/>
-          <circle cx="48" cy="150" r="6"/>
-          <circle cx="352" cy="150" r="6"/>
-          <circle cx="48" cy="260" r="5"/>
-          <circle cx="352" cy="260" r="5"/>
-          <circle cx="137" cy="360" r="5"/>
-          <circle cx="263" cy="360" r="5"/>
-        </g>
-
-        <!-- Escudo -->
-        <path d="M200 70 L308 108 v92 c0 74 -48 118 -108 138 c-60 -20 -108 -64 -108 -138 v-92 Z"
-              fill="rgba(255,255,255,.08)" stroke="url(#gShield)" stroke-width="7" stroke-linejoin="round"/>
-        <path d="M200 96 L284 126 v76 c0 58 -38 94 -84 111 c-46 -17 -84 -53 -84 -111 v-76 Z"
-              fill="rgba(0,0,0,.14)" stroke="rgba(255,255,255,.30)" stroke-width="2"/>
-
-        <!-- Cadeado -->
-        <rect x="162" y="188" width="76" height="62" rx="12" fill="#FDC82F"/>
-        <path d="M175 188 v-16 a25 25 0 0 1 50 0 v16" fill="none" stroke="#FDC82F" stroke-width="12" stroke-linecap="round"/>
-        <circle cx="200" cy="212" r="9" fill="#00522A"/>
-        <rect x="195" y="216" width="10" height="18" rx="4" fill="#00522A"/>
-
-        <!-- Pulso de verificação -->
-        <path d="M132 292 h34 l12 -20 14 34 12 -22 h44" fill="none"
-              stroke="rgba(255,255,255,.75)" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
-      </svg>
     </div>
+
+    <!-- Rede de cadeados hexagonais conectados, no estilo da imagem de referência -->
+    <svg class="net" viewBox="0 0 1280 720" aria-hidden="true">
+      <defs>
+        <!-- Nó da rede: hexágono duplo (externo pontilhado + interno sólido) com cadeado -->
+        <g id="hexlock">
+          <polygon points="0,-46 40,-23 40,23 0,46 -40,23 -40,-23"
+                   fill="none" stroke="rgba(255,255,255,.55)" stroke-width="2.5" stroke-dasharray="7 6"/>
+          <polygon points="0,-36 31,-18 31,18 0,36 -31,18 -31,-18"
+                   fill="rgba(255,255,255,.10)" stroke="rgba(255,255,255,.85)" stroke-width="2.5"/>
+          <path d="M-7,-6 v-5 a7 7 0 0 1 14 0 v5" fill="none" stroke="#FFFFFF" stroke-width="4" stroke-linecap="round"/>
+          <rect x="-12" y="-6" width="24" height="19" rx="4" fill="#FFFFFF"/>
+          <circle cx="0" cy="1" r="3.2" fill="#0A3D24"/>
+          <rect x="-1.8" y="2.5" width="3.6" height="6.5" rx="1.6" fill="#0A3D24"/>
+        </g>
+      </defs>
+
+      <!-- Linhas de conexão partindo do nó central -->
+      <g stroke="rgba(255,255,255,.45)" stroke-width="1.6" fill="none">
+        <path d="M905 330 L700 96"/>
+        <path d="M905 330 L1085 128"/>
+        <path d="M905 330 L1205 315"/>
+        <path d="M905 330 L1110 545"/>
+        <path d="M905 330 L865 620"/>
+        <path d="M905 330 L648 500"/>
+        <path d="M1085 128 L1205 315"/>
+        <path d="M1110 545 L1205 315"/>
+        <path d="M648 500 L865 620"/>
+        <path d="M700 96 L1085 128"/>
+      </g>
+      <g fill="rgba(255,255,255,.85)">
+        <circle cx="905" cy="330" r="4"/>
+        <circle cx="700" cy="96" r="3"/>
+        <circle cx="1085" cy="128" r="3"/>
+        <circle cx="1205" cy="315" r="3"/>
+        <circle cx="1110" cy="545" r="3"/>
+        <circle cx="865" cy="620" r="3"/>
+        <circle cx="648" cy="500" r="3"/>
+      </g>
+
+      <!-- Nó central: cadeado em anel segmentado -->
+      <g transform="translate(905,330)">
+        <circle r="118" fill="rgba(255,255,255,.06)"/>
+        <circle r="96" fill="none" stroke="rgba(255,255,255,.75)" stroke-width="9"
+                stroke-dasharray="42 14 12 14" transform="rotate(-18)"/>
+        <circle r="118" fill="none" stroke="rgba(255,255,255,.45)" stroke-width="3.5"
+                stroke-dasharray="4 9"/>
+        <circle r="72" fill="rgba(255,255,255,.12)"/>
+        <path d="M-24,-16 v-14 a24 24 0 0 1 48 0 v14" fill="none" stroke="#FFFFFF" stroke-width="12" stroke-linecap="round"/>
+        <rect x="-38" y="-16" width="76" height="58" rx="10" fill="#FFFFFF"/>
+        <circle cx="0" cy="6" r="10" fill="#0A3D24"/>
+        <rect x="-5" y="10" width="10" height="19" rx="4.5" fill="#0A3D24"/>
+      </g>
+
+      <!-- Nós satélites (tamanhos e opacidades variados, com profundidade) -->
+      <use href="#hexlock" transform="translate(700,96) scale(.95)"/>
+      <use href="#hexlock" transform="translate(1085,128) scale(1.1)"/>
+      <use href="#hexlock" transform="translate(1205,315) scale(.8)" opacity=".9"/>
+      <use href="#hexlock" transform="translate(1110,545) scale(1.05)"/>
+      <use href="#hexlock" transform="translate(865,620) scale(.75)" opacity=".85"/>
+      <use href="#hexlock" transform="translate(648,500) scale(.65)" opacity=".7"/>
+      <use href="#hexlock" transform="translate(1245,80) scale(.5)" opacity=".45"/>
+      <use href="#hexlock" transform="translate(560,660) scale(.45)" opacity=".35"/>
+      <use href="#hexlock" transform="translate(1250,650) scale(.55)" opacity=".4"/>
+    </svg>
     <div class="brandbar" style="top:auto;bottom:0"></div>
   </section>
 
