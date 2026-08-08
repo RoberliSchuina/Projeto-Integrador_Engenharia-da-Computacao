@@ -61,6 +61,23 @@
   }
   .footer .dot { color: var(--pb-green); font-weight: 700; }
 
+  /* ===== Logotipo Petrobras (recriado em SVG) ===== */
+  .pblogo { display: inline-flex; align-items: center; gap: 12px; }
+  .pblogo .word {
+    font-style: italic; font-weight: 800;
+    letter-spacing: .08em;
+    font-family: "Segoe UI", Arial, sans-serif;
+  }
+  .cover-logo { position: absolute; top: 40px; left: 64px; z-index: 3; }
+  .cover-logo .mark { width: 46px; height: 46px; }
+  .cover-logo .word { color: var(--white); font-size: 23px; }
+  .footer .fleft { display: flex; align-items: center; gap: 9px; }
+  .footer .fmark { width: 21px; height: 21px; flex: 0 0 auto; }
+  .footer .fword {
+    font-style: italic; font-weight: 800;
+    color: var(--pb-green); font-size: 12.5px; letter-spacing: .06em;
+  }
+
   .content { position: absolute; inset: 8px 0 44px; padding: 44px 64px 24px; }
 
   .kicker {
@@ -264,10 +281,25 @@
 
 <div class="progress" id="progress"></div>
 
+<!-- Símbolo reutilizável: marca BR da Petrobras -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="brmark" viewBox="0 0 96 96">
+    <rect width="96" height="96" fill="#FDC82F"/>
+    <rect y="30" width="96" height="66" fill="#008542"/>
+    <text x="48" y="79" font-size="52" font-weight="800" font-style="italic"
+          fill="#FFFFFF" text-anchor="middle"
+          font-family="'Segoe UI', Arial, sans-serif">BR</text>
+  </symbol>
+</svg>
+
 <div id="stage">
 
   <!-- ===== Slide 1 — Capa ===== -->
   <section class="slide cover active">
+    <div class="pblogo cover-logo">
+      <svg class="mark"><use href="#brmark"/></svg>
+      <span class="word">PETROBRAS</span>
+    </div>
     <div class="content">
       <span class="tag">Segurança da Informação</span>
       <h1>Segurança <span class="hl">Digital</span></h1>
@@ -373,7 +405,7 @@
         <b>O elo mais fraco é humano:</b>&nbsp;a maioria dos ataques usa engenharia social — urgência, medo ou prêmios — para fazer você agir sem pensar.
       </div>
     </div>
-    <div class="footer"><span>Segurança Digital <span class="dot">●</span> Orientações e dicas de como se proteger</span><span>02</span></div>
+    <div class="footer"><span class="fleft"><svg class="fmark"><use href="#brmark"/></svg><span class="fword">PETROBRAS</span><span class="dot">●</span> Segurança Digital — Orientações e dicas de como se proteger</span><span>02</span></div>
   </section>
 
   <!-- ===== Slide 3 — Como se proteger ===== -->
@@ -427,7 +459,7 @@
         </div>
       </div>
     </div>
-    <div class="footer"><span>Segurança Digital <span class="dot">●</span> Orientações e dicas de como se proteger</span><span>03</span></div>
+    <div class="footer"><span class="fleft"><svg class="fmark"><use href="#brmark"/></svg><span class="fword">PETROBRAS</span><span class="dot">●</span> Segurança Digital — Orientações e dicas de como se proteger</span><span>03</span></div>
   </section>
 
   <!-- ===== Slide 4 — Segurança digital na Petrobras ===== -->
@@ -435,8 +467,8 @@
     <div class="brandbar"></div>
     <div class="content">
       <div class="kicker">Ambiente corporativo</div>
-      <h2>Segurança digital na <em>Petrobras</em></h2>
-      <div class="grid g4" style="grid-template-columns: repeat(3, 1fr);">
+      <h2 style="margin-bottom:14px">Segurança digital na <em>Petrobras</em></h2>
+      <div class="grid g4" style="grid-template-columns: repeat(3, 1fr); gap: 12px;">
         <div class="card">
           <div class="ic">🪪</div>
           <h3>Credenciais são pessoais</h3>
@@ -468,11 +500,11 @@
           <p>Recebeu e‑mail suspeito, perdeu equipamento ou clicou em link malicioso? <strong>Comunique na hora</strong> os canais internos de segurança da informação — reportar rápido limita o dano.</p>
         </div>
       </div>
-      <div class="note">
+      <div class="note" style="margin-top:12px; padding:10px 20px; font-size:15px;">
         <b>Regra de ouro corporativa:</b>&nbsp;na dúvida, não clique, não repasse e não instale — pergunte antes ao time de segurança da informação.
       </div>
     </div>
-    <div class="footer"><span>Segurança Digital <span class="dot">●</span> Orientações e dicas de como se proteger</span><span>04</span></div>
+    <div class="footer"><span class="fleft"><svg class="fmark"><use href="#brmark"/></svg><span class="fword">PETROBRAS</span><span class="dot">●</span> Segurança Digital — Orientações e dicas de como se proteger</span><span>04</span></div>
   </section>
 
   <!-- ===== Slide 5 — Vídeo + conclusão ===== -->
@@ -507,7 +539,7 @@
         </div>
       </div>
     </div>
-    <div class="footer"><span>Segurança Digital <span class="dot">●</span> Orientações e dicas de como se proteger</span><span>05</span></div>
+    <div class="footer"><span class="fleft"><svg class="fmark"><use href="#brmark"/></svg><span class="fword">PETROBRAS</span><span class="dot">●</span> Segurança Digital — Orientações e dicas de como se proteger</span><span>05</span></div>
   </section>
 
 </div>
