@@ -233,6 +233,27 @@
   .mhub h3 { color: var(--white); font-size: 18px; }
   .mhub p { color: rgba(255,255,255,.85); font-size: 12px; }
   .mhub .mi { stroke: var(--pb-yellow); width: 28px; height: 28px; }
+  .mnode2 {
+    position: absolute; transform: translate(-50%,-50%);
+    display: flex; align-items: center; gap: 16px;
+    width: 340px;
+  }
+  .mnode2 .bubble {
+    flex: 0 0 92px; width: 92px; height: 92px; border-radius: 50%;
+    background: var(--white); border: 2px solid var(--pb-green);
+    box-shadow: 0 10px 26px rgba(0,59,31,.14);
+    display: flex; align-items: center; justify-content: center;
+  }
+  .mnode2 .bubble svg {
+    width: 32px; height: 32px;
+    fill: none; stroke: var(--pb-green-dark);
+    stroke-width: 2; stroke-linecap: round; stroke-linejoin: round;
+  }
+  .mnode2 .txt h3 { font-size: 17px; color: var(--ink); margin-bottom: 4px; line-height: 1.15; }
+  .mnode2 .txt p { font-size: 12.8px; line-height: 1.45; color: var(--muted); }
+  .mnode2.left { flex-direction: row-reverse; text-align: right; }
+  .mnode2.right { flex-direction: row; text-align: left; }
+
   .m6 .mnode { width: 184px; height: 184px; padding: 16px 20px; }
   .m6 .mnode h3 { font-size: 14.5px; }
   .m6 .mnode p { font-size: 11.3px; }
@@ -539,44 +560,52 @@
       <div class="mandala" style="height:472px">
         <svg class="morbit" viewBox="0 0 1152 472" aria-hidden="true">
           <g class="spokes">
-            <line x1="576" y1="236" x2="216" y2="112"/>
-            <line x1="576" y1="236" x2="936" y2="112"/>
-            <line x1="576" y1="236" x2="216" y2="360"/>
-            <line x1="576" y1="236" x2="936" y2="360"/>
+            <line x1="576" y1="266" x2="374" y2="148"/>
+            <line x1="576" y1="266" x2="778" y2="148"/>
+            <line x1="576" y1="266" x2="374" y2="384"/>
+            <line x1="576" y1="266" x2="778" y2="384"/>
           </g>
-          <circle cx="576" cy="236" r="146" class="ring r1"/>
-          <circle cx="576" cy="236" r="168" class="ring r2"/>
+          <circle cx="576" cy="266" r="146" class="ring r1"/>
+          <circle cx="576" cy="266" r="168" class="ring r2"/>
           <g class="joints">
-            <circle cx="396" cy="174" r="5"/>
-            <circle cx="756" cy="174" r="5"/>
-            <circle cx="396" cy="298" r="5"/>
-            <circle cx="756" cy="298" r="5"/>
+            <circle cx="480" cy="210" r="5"/>
+            <circle cx="672" cy="210" r="5"/>
+            <circle cx="480" cy="322" r="5"/>
+            <circle cx="672" cy="322" r="5"/>
           </g>
         </svg>
-        <div class="mnode mhub" style="left:576px; top:236px; width:236px; height:236px;">
+        <div class="mnode mhub" style="left:576px; top:266px; width:236px; height:236px;">
           <svg class="mi"><use href="#i-alert"/></svg>
           <h3>Ameaças &amp; golpes</h3>
           <p>O elo mais fraco é humano: a engenharia social explora pressa, medo e prêmios para você agir sem pensar.</p>
         </div>
-        <div class="mnode" style="left:216px; top:112px;">
-          <svg class="mi"><use href="#i-mail"/></svg>
-          <h3>Phishing</h3>
-          <p>Mensagens falsas que imitam empresas para roubar senhas e dados de cartão.</p>
+        <div class="mnode2 left" style="left:250px; top:148px;">
+          <span class="bubble"><svg><use href="#i-mail"/></svg></span>
+          <div class="txt">
+            <h3>Phishing</h3>
+            <p>Mensagens falsas que imitam empresas para roubar senhas e dados de cartão.</p>
+          </div>
         </div>
-        <div class="mnode" style="left:936px; top:112px;">
-          <svg class="mi"><use href="#i-dollar"/></svg>
-          <h3>Golpes com Pix</h3>
-          <p>Falsas centrais e “conta segura”: banco nenhum pede Pix por telefone.</p>
+        <div class="mnode2 right" style="left:902px; top:148px;">
+          <span class="bubble"><svg><use href="#i-dollar"/></svg></span>
+          <div class="txt">
+            <h3>Golpes com Pix</h3>
+            <p>Falsas centrais e “conta segura”: banco nenhum pede Pix por telefone.</p>
+          </div>
         </div>
-        <div class="mnode" style="left:216px; top:360px;">
-          <svg class="mi"><use href="#i-message"/></svg>
-          <h3>Clonagem de WhatsApp</h3>
-          <p>“Número novo” de parente pedindo dinheiro urgente? Confirme por ligação.</p>
+        <div class="mnode2 left" style="left:250px; top:384px;">
+          <span class="bubble"><svg><use href="#i-message"/></svg></span>
+          <div class="txt">
+            <h3>Clonagem de WhatsApp</h3>
+            <p>“Número novo” de parente pedindo dinheiro urgente? Confirme por ligação.</p>
+          </div>
         </div>
-        <div class="mnode" style="left:936px; top:360px;">
-          <svg class="mi"><use href="#i-bug"/></svg>
-          <h3>Malware e ransomware</h3>
-          <p>Apps piratas, anexos e “cracks” instalam programas que sequestram arquivos.</p>
+        <div class="mnode2 right" style="left:902px; top:384px;">
+          <span class="bubble"><svg><use href="#i-bug"/></svg></span>
+          <div class="txt">
+            <h3>Malware e ransomware</h3>
+            <p>Apps piratas, anexos e “cracks” instalam programas que sequestram arquivos.</p>
+          </div>
         </div>
       </div>
     </div>
