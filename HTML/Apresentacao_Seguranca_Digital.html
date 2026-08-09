@@ -267,6 +267,31 @@
     border: 1px solid var(--line);
   }
   .player iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
+  .poster {
+    position: absolute; inset: 0;
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    gap: 14px; padding: 30px; text-align: center; text-decoration: none;
+    background:
+      radial-gradient(520px 300px at 50% 0%, rgba(253,200,47,.16), transparent 60%),
+      linear-gradient(150deg, var(--pb-green) 0%, var(--pb-green-dark) 55%, var(--pb-green-deep) 100%);
+    transition: filter .2s;
+  }
+  .poster:hover { filter: brightness(1.12); }
+  .poster .pbtn {
+    width: 84px; height: 84px; border-radius: 50%;
+    background: var(--pb-yellow);
+    display: flex; align-items: center; justify-content: center;
+    box-shadow: 0 12px 32px rgba(0,0,0,.35);
+  }
+  .poster .pbtn svg {
+    width: 34px; height: 34px; margin-left: 5px;
+    fill: var(--pb-green-deep); stroke: none;
+  }
+  .poster .pt-title { color: var(--white); font-size: 19px; font-weight: 700; max-width: 520px; line-height: 1.3; }
+  .poster .pt-cta {
+    color: var(--pb-yellow); font-size: 14px; font-weight: 600;
+    letter-spacing: .04em; text-transform: uppercase;
+  }
   .video-cap { margin-top: 10px; font-size: 13px; color: var(--muted); }
   .video-cap a { color: var(--pb-green); font-weight: 600; text-decoration: none; }
   .video-cap a:hover { text-decoration: underline; }
@@ -668,14 +693,19 @@
         <div>
           <div class="player">
             <iframe id="ytvideo"
-              src="https://www.youtube.com/embed/z2ozsB3_Iww?rel=0"
+              data-src="https://www.youtube.com/embed/z2ozsB3_Iww?rel=0"
               title="Como evitar golpes digitais e proteger seus dados na internet (NDTV)"
               allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-              allowfullscreen></iframe>
+              allowfullscreen hidden></iframe>
+            <a id="ytposter" class="poster" href="https://www.youtube.com/watch?v=z2ozsB3_Iww" target="_blank" rel="noopener" hidden>
+              <span class="pbtn"><svg viewBox="0 0 24 24"><polygon points="6 3 21 12 6 21 6 3"/></svg></span>
+              <span class="pt-title">Como evitar golpes digitais e proteger seus dados na internet</span>
+              <span class="pt-cta">▶ Clique para assistir no YouTube</span>
+            </a>
           </div>
           <p class="video-cap">
             <svg class="cap-i"><use href="#i-play"/></svg> <strong>“Como evitar golpes digitais e proteger seus dados na internet”</strong> — reportagem NDTV (portal ND Mais).
-            Não carregou? Assista em <a href="https://www.youtube.com/watch?v=z2ozsB3_Iww" target="_blank" rel="noopener">youtube.com/watch?v=z2ozsB3_Iww</a>
+            O vídeo abre incorporado quando a apresentação está hospedada na web; em arquivo local, clique no pôster. Link direto: <a href="https://www.youtube.com/watch?v=z2ozsB3_Iww" target="_blank" rel="noopener">youtube.com/watch?v=z2ozsB3_Iww</a>
           </p>
         </div>
         <div class="takeaway">
@@ -714,7 +744,14 @@
   const progress = document.getElementById('progress');
   const dotsBox = document.getElementById('dots');
   const video = document.getElementById('ytvideo');
-  const videoSrc = video.getAttribute('src');
+  const poster = document.getElementById('ytposter');
+  // O player do YouTube exige um referer HTTP valido (Erro 153 em file://):
+  // hospedada na web, a pagina incorpora o video; aberta como arquivo
+  // local, mostra um poster que abre o video no YouTube em nova aba.
+  const canEmbed = location.protocol === 'http:' || location.protocol === 'https:';
+  const videoSrc = video.dataset.src;
+  if (canEmbed) { video.src = videoSrc; video.hidden = false; }
+  else { poster.hidden = false; }
   let current = 0;
 
   slides.forEach((_, i) => {
@@ -739,8 +776,8 @@
     dots.forEach((d, idx) => d.classList.toggle('on', idx === current));
     counter.textContent = (current + 1) + '/' + slides.length;
     progress.style.width = ((current + 1) / slides.length * 100) + '%';
-    // Pausa o vídeo ao sair do slide 4 (recarrega o iframe)
-    if (prev === slides.length - 1 && current !== prev) video.setAttribute('src', videoSrc);
+    // Pausa o vídeo ao sair do slide do vídeo (recarrega o iframe)
+    if (canEmbed && prev === slides.length - 1 && current !== prev) video.setAttribute('src', videoSrc);
     location.hash = 'slide-' + (current + 1);
   }
 
