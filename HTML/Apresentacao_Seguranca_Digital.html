@@ -259,6 +259,24 @@
   .m6 .mnode h3 { font-size: 14.5px; }
   .m6 .mnode p { font-size: 11.3px; }
 
+  /* ===== Slide 2 — donut de ameaças ===== */
+  .fraude { display: flex; align-items: center; gap: 42px; margin-top: 26px; }
+  .fraude .donut { flex: 0 0 430px; }
+  .fraude .painel { flex: 1; min-width: 0; }
+  .fraude h3 { font-size: 15px; color: var(--ink); margin-bottom: 10px; }
+  .leg { list-style: none; margin-bottom: 16px; }
+  .leg li { display: flex; align-items: center; gap: 10px; padding: 4.5px 0; font-size: 13.5px; color: var(--muted); }
+  .leg .chip { width: 14px; height: 14px; border-radius: 4px; flex: 0 0 auto; }
+  .leg .lbl { flex: 1; }
+  .leg .val { font-weight: 700; color: var(--ink); font-variant-numeric: tabular-nums; }
+  .mini { list-style: none; margin-bottom: 10px; }
+  .mini li { display: grid; grid-template-columns: 210px 1fr 52px; align-items: center; gap: 10px; padding: 3.5px 0; font-size: 12.5px; color: var(--muted); }
+  .mini .track { height: 8px; border-radius: 4px; background: var(--surface); overflow: hidden; }
+  .mini .fill { display: block; height: 100%; border-radius: 4px; background: var(--pb-green); }
+  .mini .val { font-weight: 700; color: var(--ink); text-align: right; font-variant-numeric: tabular-nums; }
+  .fonte { font-size: 11.5px; color: var(--muted); line-height: 1.45; border-top: 1px solid var(--line); padding-top: 8px; }
+  .fonte b { color: var(--pb-green-dark); }
+
   /* ===== Slide 3 — defesa em camadas (quarto de círculo) ===== */
   .did { position: relative; height: 430px; margin-top: 4px; }
   .did svg.rings { position: absolute; inset: 0; width: 100%; height: 100%; }
@@ -615,56 +633,38 @@
     <div class="brandbar"></div>
     <div class="content">
       <div class="kicker">O cenário de risco</div>
-      <h2 style="margin-bottom:6px">Principais <em>ameaças</em> e golpes</h2>
-      <div class="mandala" style="height:472px">
-        <svg class="morbit" viewBox="0 0 1152 472" aria-hidden="true">
-          <g class="spokes">
-            <line x1="576" y1="266" x2="374" y2="148"/>
-            <line x1="576" y1="266" x2="778" y2="148"/>
-            <line x1="576" y1="266" x2="374" y2="384"/>
-            <line x1="576" y1="266" x2="778" y2="384"/>
-          </g>
-          <circle cx="576" cy="266" r="146" class="ring r1"/>
-          <circle cx="576" cy="266" r="168" class="ring r2"/>
-          <g class="joints">
-            <circle cx="480" cy="210" r="5"/>
-            <circle cx="672" cy="210" r="5"/>
-            <circle cx="480" cy="322" r="5"/>
-            <circle cx="672" cy="322" r="5"/>
-          </g>
+      <h2 style="margin-bottom:6px">Ameaças e golpes <em>em números</em></h2>
+      <div class="fraude">
+        <svg class="donut" viewBox="0 0 430 430" aria-hidden="true">
+          <circle cx="215" cy="215" r="142" fill="none" stroke="#008542" stroke-width="95" stroke-dasharray="472.1 420.1" stroke-dashoffset="-0.0" transform="rotate(-90 215 215)"/>
+          <circle cx="215" cy="215" r="142" fill="none" stroke="#D9A10E" stroke-width="95" stroke-dasharray="149.4 742.8" stroke-dashoffset="-475.1" transform="rotate(-90 215 215)"/>
+          <circle cx="215" cy="215" r="142" fill="none" stroke="#2F6DB5" stroke-width="95" stroke-dasharray="140.5 751.7" stroke-dashoffset="-627.5" transform="rotate(-90 215 215)"/>
+          <circle cx="215" cy="215" r="142" fill="none" stroke="#C4622D" stroke-width="95" stroke-dasharray="91.5 800.7" stroke-dashoffset="-771.0" transform="rotate(-90 215 215)"/>
+          <circle cx="215" cy="215" r="142" fill="none" stroke="#7B5EA7" stroke-width="95" stroke-dasharray="23.7 868.5" stroke-dashoffset="-865.5" transform="rotate(-90 215 215)"/>
+          <text x="356" y="229" text-anchor="middle" dominant-baseline="middle" font-size="24" font-weight="800" fill="#FFFFFF" font-family="'Segoe UI', Arial, sans-serif">53,3%</text>
+          <text x="215" y="207" text-anchor="middle" font-size="17" font-weight="700" fill="#12281B"
+                font-family="'Segoe UI', Arial, sans-serif">Brasil · 2024</text>
+          <text x="215" y="229" text-anchor="middle" font-size="12.5" fill="#4C5F55"
+                font-family="'Segoe UI', Arial, sans-serif">tentativas de fraude</text>
         </svg>
-        <div class="mnode mhub" style="left:576px; top:266px; width:236px; height:236px;">
-          <svg class="mi"><use href="#i-alert"/></svg>
-          <h3>Ameaças &amp; golpes</h3>
-          <p>O elo mais fraco é humano: a engenharia social explora pressa, medo e prêmios para você agir sem pensar.</p>
-        </div>
-        <div class="mnode2 left" style="left:250px; top:148px;">
-          <span class="bubble"><svg><use href="#i-mail"/></svg></span>
-          <div class="txt">
-            <h3>Phishing</h3>
-            <p>Mensagens falsas que imitam empresas para roubar senhas e dados de cartão.</p>
-          </div>
-        </div>
-        <div class="mnode2 right" style="left:902px; top:148px;">
-          <span class="bubble"><svg><use href="#i-dollar"/></svg></span>
-          <div class="txt">
-            <h3>Golpes com Pix</h3>
-            <p>Falsas centrais e “conta segura”: banco nenhum pede Pix por telefone.</p>
-          </div>
-        </div>
-        <div class="mnode2 left" style="left:250px; top:384px;">
-          <span class="bubble"><svg><use href="#i-message"/></svg></span>
-          <div class="txt">
-            <h3>Clonagem de WhatsApp</h3>
-            <p>“Número novo” de parente pedindo dinheiro urgente? Confirme por ligação.</p>
-          </div>
-        </div>
-        <div class="mnode2 right" style="left:902px; top:384px;">
-          <span class="bubble"><svg><use href="#i-bug"/></svg></span>
-          <div class="txt">
-            <h3>Malware e ransomware</h3>
-            <p>Apps piratas, anexos e “cracks” instalam programas que sequestram arquivos.</p>
-          </div>
+        <div class="painel">
+          <h3>Tentativas de fraude por segmento atacado</h3>
+          <ul class="leg">
+          <li><span class="chip" style="background:#008542"></span><span class="lbl">Bancos e cartões</span><span class="val">53,3%</span></li>
+          <li><span class="chip" style="background:#D9A10E"></span><span class="lbl">Instituições financeiras</span><span class="val">17,1%</span></li>
+          <li><span class="chip" style="background:#2F6DB5"></span><span class="lbl">Serviços</span><span class="val">16,1%</span></li>
+          <li><span class="chip" style="background:#C4622D"></span><span class="lbl">Varejo</span><span class="val">10,6%</span></li>
+          <li><span class="chip" style="background:#7B5EA7"></span><span class="lbl">Telefonia</span><span class="val">3,0%</span></li>
+          </ul>
+          <h3>Golpes mais sofridos pelos consumidores*</h3>
+          <ul class="mini">
+          <li><span>Uso indevido do cartão de crédito</span><span class="track"><span class="fill" style="width:100%"></span></span><span class="val">47,9%</span></li>
+          <li><span>Boletos falsos e fraudes via Pix</span><span class="track"><span class="fill" style="width:68%"></span></span><span class="val">32,8%</span></li>
+          <li><span>Phishing (links e páginas falsas)</span><span class="track"><span class="fill" style="width:45%"></span></span><span class="val">21,6%</span></li>
+          <li><span>Invasão de contas (banco/redes)</span><span class="track"><span class="fill" style="width:40%"></span></span><span class="val">19,1%</span></li>
+          </ul>
+          <p class="fonte">*Resposta múltipla: percentual de vítimas que sofreu cada tipo de golpe.<br>
+          <b>Fonte:</b> Serasa Experian — Indicador de Tentativas de Fraude e pesquisa com consumidores, dados de 2024 (serasaexperian.com.br/sala-de-imprensa).</p>
         </div>
       </div>
     </div>
