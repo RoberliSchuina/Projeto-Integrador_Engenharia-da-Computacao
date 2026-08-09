@@ -144,9 +144,10 @@
     font-size: 24px; font-weight: 300;
     margin-top: 20px; max-width: 720px;
   }
-  .cover .net {
-    position: absolute; inset: 0;
-    width: 100%; height: 100%;
+  .cover .hero {
+    position: absolute; right: 52px; top: 50%;
+    transform: translateY(-50%);
+    width: 480px; height: 480px;
     user-select: none; pointer-events: none;
   }
   .cover .content { z-index: 2; }
@@ -484,69 +485,63 @@
       <p class="subtitle">Orientações e dicas de como se proteger no ambiente conectado</p>
     </div>
 
-    <!-- Rede de cadeados hexagonais conectados, no estilo da imagem de referência -->
-    <svg class="net" viewBox="0 0 1280 720" aria-hidden="true">
+    <!-- Elemento principal da capa: escudo com cadeado e anéis orbitais -->
+    <svg class="hero" viewBox="0 0 480 480" aria-hidden="true">
       <defs>
-        <!-- Nó da rede: hexágono duplo (externo pontilhado + interno sólido) com cadeado -->
-        <g id="hexlock">
-          <polygon points="0,-46 40,-23 40,23 0,46 -40,23 -40,-23"
-                   fill="none" stroke="rgba(255,255,255,.55)" stroke-width="2.5" stroke-dasharray="7 6"/>
-          <polygon points="0,-36 31,-18 31,18 0,36 -31,18 -31,-18"
-                   fill="rgba(255,255,255,.10)" stroke="rgba(255,255,255,.85)" stroke-width="2.5"/>
-          <path d="M-7,-6 v-5 a7 7 0 0 1 14 0 v5" fill="none" stroke="#FFFFFF" stroke-width="4" stroke-linecap="round"/>
-          <rect x="-12" y="-6" width="24" height="19" rx="4" fill="#FFFFFF"/>
-          <circle cx="0" cy="1" r="3.2" fill="#0A3D24"/>
-          <rect x="-1.8" y="2.5" width="3.6" height="6.5" rx="1.6" fill="#0A3D24"/>
-        </g>
+        <linearGradient id="gEdge" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0" stop-color="#FDC82F"/>
+          <stop offset=".55" stop-color="#FFE9A8"/>
+          <stop offset="1" stop-color="#8FD6AE"/>
+        </linearGradient>
+        <radialGradient id="gHalo" cx=".5" cy=".46" r=".55">
+          <stop offset="0" stop-color="rgba(253,200,47,.30)"/>
+          <stop offset=".55" stop-color="rgba(255,255,255,.07)"/>
+          <stop offset="1" stop-color="rgba(255,255,255,0)"/>
+        </radialGradient>
       </defs>
 
-      <!-- Linhas de conexão partindo do nó central -->
-      <g stroke="rgba(255,255,255,.45)" stroke-width="1.6" fill="none">
-        <path d="M905 330 L700 96"/>
-        <path d="M905 330 L1085 128"/>
-        <path d="M905 330 L1205 315"/>
-        <path d="M905 330 L1110 545"/>
-        <path d="M905 330 L865 620"/>
-        <path d="M905 330 L648 500"/>
-        <path d="M1085 128 L1205 315"/>
-        <path d="M1110 545 L1205 315"/>
-        <path d="M648 500 L865 620"/>
-        <path d="M700 96 L1085 128"/>
+      <!-- halo suave -->
+      <circle cx="240" cy="230" r="215" fill="url(#gHalo)"/>
+
+      <!-- anéis orbitais -->
+      <g fill="none" stroke-linecap="round">
+        <ellipse cx="240" cy="235" rx="215" ry="88"
+                 transform="rotate(-22 240 235)"
+                 stroke="rgba(255,255,255,.30)" stroke-width="2" stroke-dasharray="1 9"/>
+        <ellipse cx="240" cy="235" rx="196" ry="74"
+                 transform="rotate(28 240 235)"
+                 stroke="rgba(253,200,47,.45)" stroke-width="1.6" stroke-dasharray="26 12"/>
       </g>
-      <g fill="rgba(255,255,255,.85)">
-        <circle cx="905" cy="330" r="4"/>
-        <circle cx="700" cy="96" r="3"/>
-        <circle cx="1085" cy="128" r="3"/>
-        <circle cx="1205" cy="315" r="3"/>
-        <circle cx="1110" cy="545" r="3"/>
-        <circle cx="865" cy="620" r="3"/>
-        <circle cx="648" cy="500" r="3"/>
+      <!-- pontos orbitais -->
+      <circle cx="52" cy="310" r="7" fill="#FDC82F"/>
+      <circle cx="52" cy="310" r="13" fill="none" stroke="rgba(253,200,47,.4)" stroke-width="2"/>
+      <circle cx="430" cy="150" r="6" fill="#FFFFFF" opacity=".9"/>
+      <circle cx="398" cy="352" r="4.5" fill="#FDC82F" opacity=".85"/>
+      <circle cx="92" cy="112" r="4" fill="#FFFFFF" opacity=".6"/>
+
+      <!-- brilhos discretos -->
+      <g stroke="rgba(255,255,255,.55)" stroke-width="2.4" stroke-linecap="round">
+        <path d="M405 78 v20 M395 88 h20"/>
+        <path d="M78 400 v14 M71 407 h14"/>
       </g>
 
-      <!-- Nó central: cadeado em anel segmentado -->
-      <g transform="translate(905,330)">
-        <circle r="118" fill="rgba(255,255,255,.06)"/>
-        <circle r="96" fill="none" stroke="rgba(255,255,255,.75)" stroke-width="9"
-                stroke-dasharray="42 14 12 14" transform="rotate(-18)"/>
-        <circle r="118" fill="none" stroke="rgba(255,255,255,.45)" stroke-width="3.5"
-                stroke-dasharray="4 9"/>
-        <circle r="72" fill="rgba(255,255,255,.12)"/>
-        <path d="M-24,-16 v-14 a24 24 0 0 1 48 0 v14" fill="none" stroke="#FFFFFF" stroke-width="12" stroke-linecap="round"/>
-        <rect x="-38" y="-16" width="76" height="58" rx="10" fill="#FFFFFF"/>
-        <circle cx="0" cy="6" r="10" fill="#0A3D24"/>
-        <rect x="-5" y="10" width="10" height="19" rx="4.5" fill="#0A3D24"/>
-      </g>
+      <!-- escudo -->
+      <path d="M240 66 L376 114 v104 c0 92-59 147-136 174 c-77-27-136-82-136-174 v-104 Z"
+            fill="rgba(255,255,255,.09)" stroke="url(#gEdge)" stroke-width="7" stroke-linejoin="round"/>
+      <path d="M240 92 L350 131 v87 c0 76-47 121-110 144 c-63-23-110-68-110-144 v-87 Z"
+            fill="rgba(0,0,0,.16)" stroke="rgba(255,255,255,.22)" stroke-width="1.5"/>
 
-      <!-- Nós satélites (tamanhos e opacidades variados, com profundidade) -->
-      <use href="#hexlock" transform="translate(700,96) scale(.95)"/>
-      <use href="#hexlock" transform="translate(1085,128) scale(1.1)"/>
-      <use href="#hexlock" transform="translate(1205,315) scale(.8)" opacity=".9"/>
-      <use href="#hexlock" transform="translate(1110,545) scale(1.05)"/>
-      <use href="#hexlock" transform="translate(865,620) scale(.75)" opacity=".85"/>
-      <use href="#hexlock" transform="translate(648,500) scale(.65)" opacity=".7"/>
-      <use href="#hexlock" transform="translate(1245,80) scale(.5)" opacity=".45"/>
-      <use href="#hexlock" transform="translate(560,660) scale(.45)" opacity=".35"/>
-      <use href="#hexlock" transform="translate(1250,650) scale(.55)" opacity=".4"/>
+      <!-- cadeado -->
+      <path d="M206 218 v-24 a34 34 0 0 1 68 0 v24" fill="none"
+            stroke="#FFFFFF" stroke-width="17" stroke-linecap="round"/>
+      <rect x="188" y="218" width="104" height="82" rx="16" fill="#FFFFFF"/>
+      <circle cx="240" cy="250" r="12" fill="#0A3D24"/>
+      <rect x="233.5" y="255" width="13" height="25" rx="6" fill="#0A3D24"/>
+
+      <!-- pulso de verificação na base do escudo -->
+      <path d="M170 346 h32 l11 -18 13 30 11 -20 h33" fill="none"
+            stroke="rgba(253,200,47,.9)" stroke-width="4.5"
+            stroke-linecap="round" stroke-linejoin="round"/>
     </svg>
     <div class="brandbar" style="top:auto;bottom:0"></div>
   </section>
