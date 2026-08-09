@@ -259,6 +259,22 @@
   .m6 .mnode h3 { font-size: 14.5px; }
   .m6 .mnode p { font-size: 11.3px; }
 
+  /* ===== Slide 3 — defesa em camadas (quarto de círculo) ===== */
+  .did { position: relative; height: 430px; margin-top: 4px; }
+  .did svg.rings { position: absolute; inset: 0; width: 100%; height: 100%; }
+  .did .row {
+    position: absolute; left: 585px; width: 545px;
+    transform: translateY(-50%);
+    display: flex; align-items: baseline; gap: 14px;
+  }
+  .did .row .num {
+    flex: 0 0 34px;
+    font-size: 30px; font-weight: 300; line-height: 1;
+    color: var(--pb-green); text-align: center;
+  }
+  .did .row h4 { font-size: 16.5px; color: var(--ink); margin-bottom: 2px; }
+  .did .row p { font-size: 12.5px; line-height: 1.4; color: var(--muted); }
+
   /* ===== Slide 3 — lista de proteção ===== */
   .protect { display: grid; grid-template-columns: 1fr 1fr; gap: 14px 26px; }
   .tip {
@@ -659,53 +675,71 @@
   <section class="slide">
     <div class="brandbar"></div>
     <div class="content">
-      <div class="kicker">Defesa em camadas</div>
-      <h2>Como se <em>proteger</em>: 6 atitudes essenciais</h2>
-      <div class="protect">
-        <div class="tip">
-          <div class="n">1</div>
+      <div class="kicker">Proteção em profundidade</div>
+      <h2 style="margin-bottom:4px">Defesa em <em>camadas</em>: 6 atitudes essenciais</h2>
+      <div class="did">
+        <svg class="rings" viewBox="0 0 1152 430" aria-hidden="true">
+          <path d="M 35 430 A 425 425 0 0 1 460 5 L 460 430 Z" fill="#DFF2E8"/>
+          <path d="M 105 430 A 355 355 0 0 1 460 75 L 460 430 Z" fill="#BFE5D2"/>
+          <path d="M 170 430 A 290 290 0 0 1 460 140 L 460 430 Z" fill="#97D3B4"/>
+          <path d="M 235 430 A 225 225 0 0 1 460 205 L 460 430 Z" fill="#67BD90"/>
+          <path d="M 300 430 A 160 160 0 0 1 460 270 L 460 430 Z" fill="#2FA467"/>
+          <path d="M 365 430 A 95 95 0 0 1 460 335 L 460 430 Z" fill="#008542"/>
+          <path d="M 430 430 A 30 30 0 0 1 460 400 L 460 430 Z" fill="#00522A"/>
+          <text x="184" y="158" transform="rotate(-45 184 158)" text-anchor="middle"
+                font-size="21" font-weight="700" fill="#0A5C33"
+                font-family="'Segoe UI', Arial, sans-serif">Defesa em camadas</text>
+          <line x1="455" y1="40" x2="565" y2="40" stroke="#3F5A4C" stroke-width="1.6"/><circle cx="455" cy="40" r="5" fill="#12281B"/>
+          <line x1="455" y1="108" x2="565" y2="108" stroke="#3F5A4C" stroke-width="1.6"/><circle cx="455" cy="108" r="5" fill="#12281B"/>
+          <line x1="455" y1="173" x2="565" y2="173" stroke="#3F5A4C" stroke-width="1.6"/><circle cx="455" cy="173" r="5" fill="#12281B"/>
+          <line x1="455" y1="238" x2="565" y2="238" stroke="#3F5A4C" stroke-width="1.6"/><circle cx="455" cy="238" r="5" fill="#12281B"/>
+          <line x1="455" y1="303" x2="565" y2="303" stroke="#3F5A4C" stroke-width="1.6"/><circle cx="455" cy="303" r="5" fill="#12281B"/>
+          <line x1="455" y1="368" x2="565" y2="368" stroke="#3F5A4C" stroke-width="1.6"/><circle cx="455" cy="368" r="5" fill="#12281B"/>
+        </svg>
+        <div class="row" style="top:40px">
+          <div class="num">1</div>
           <div>
             <h4>Senhas fortes e únicas</h4>
-            <p>Frases longas (12+ caracteres), uma senha por serviço e um gerenciador de senhas (Bitwarden, 1Password, KeePass). Verifique se seu e‑mail já apareceu em vazamentos (ex.: Have I Been Pwned).</p>
+            <p>Frases longas e uma senha por serviço, com gerenciador (Bitwarden, 1Password, KeePass). Confira vazamentos do seu e‑mail (Have I Been Pwned).</p>
           </div>
         </div>
-        <div class="tip">
-          <div class="n">2</div>
+        <div class="row" style="top:108px">
+          <div class="num">2</div>
           <div>
-            <h4>Duas etapas (2FA) em tudo</h4>
-            <p>App autenticador ou passkey no e‑mail, banco, WhatsApp e redes sociais. SMS só em último caso (risco de clonagem de chip). <strong>Nunca</strong> compartilhe códigos de verificação — quem pede é golpista.</p>
+            <h4>Autenticação em duas etapas (2FA)</h4>
+            <p>App autenticador ou passkey no e‑mail, banco, WhatsApp e redes sociais. SMS só em último caso — e nunca compartilhe códigos de verificação.</p>
           </div>
         </div>
-        <div class="tip">
-          <div class="n">3</div>
+        <div class="row" style="top:173px">
+          <div class="num">3</div>
           <div>
             <h4>Desconfie da urgência</h4>
-            <p>Não clique em links inesperados: confira remetente e domínio, digite você mesmo o endereço oficial e confirme por outro canal. Pare, pense, verifique.</p>
+            <p>Não clique em links inesperados: confira remetente e domínio, digite o endereço oficial e confirme por outro canal. Pare, pense, verifique.</p>
           </div>
         </div>
-        <div class="tip">
-          <div class="n">4</div>
+        <div class="row" style="top:238px">
+          <div class="num">4</div>
           <div>
             <h4>Atualize sempre</h4>
-            <p>Sistema, apps e roteador com atualização automática: correções fecham falhas que os criminosos já exploram. Abandone sistemas sem suporte do fabricante.</p>
+            <p>Sistema, apps e roteador com atualização automática; abandone sistemas sem suporte do fabricante.</p>
           </div>
         </div>
-        <div class="tip">
-          <div class="n">5</div>
+        <div class="row" style="top:303px">
+          <div class="num">5</div>
           <div>
-            <h4>Backup 3‑2‑1</h4>
-            <p>3 cópias, 2 mídias diferentes, 1 fora do local (nuvem). É a única defesa real contra ransomware e perda do aparelho — e teste a restauração de tempos em tempos.</p>
+            <h4>Backup 3-2-1</h4>
+            <p>3 cópias, 2 mídias, 1 fora do local (nuvem) — a defesa real contra ransomware. Teste a restauração periodicamente.</p>
           </div>
         </div>
-        <div class="tip">
-          <div class="n">6</div>
+        <div class="row" style="top:368px">
+          <div class="num">6</div>
           <div>
             <h4>Reaja rápido a incidentes</h4>
-            <p>Troque senhas (comece pelo e‑mail), acione o banco, peça a devolução do Pix (MED) e registre boletim de ocorrência. Guarde provas (prints, comprovantes) e monitore seu CPF (Registrato/birôs de crédito).</p>
+            <p>Troque senhas, acione o banco, peça a devolução do Pix (MED), registre B.O. Guarde provas e monitore seu CPF (Registrato).</p>
           </div>
         </div>
       </div>
-      <div class="note" style="margin-top:14px; padding:10px 20px; font-size:14.5px;">
+      <div class="note" style="margin-top:10px; padding:9px 20px; font-size:14px;">
         <span><b>Bônus — conexões:</b> em Wi‑Fi público, evite banco e senhas (prefira 4G/5G); em casa, troque a senha padrão do roteador. E lembre: o cadeado HTTPS indica conexão criptografada, <strong>não</strong> que o site é honesto — golpistas também usam HTTPS.</span>
       </div>
     </div>
