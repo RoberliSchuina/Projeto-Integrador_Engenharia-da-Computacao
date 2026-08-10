@@ -1,94 +1,74 @@
-# Roteiro de Narração Institucional — Segurança Digital
-**Orientações e dicas de como se proteger**
+# Roteiro de Narração — Segurança Digital
+**Narração contínua para agente inteligente de IA**
 
-> Texto preparado para leitura por voz sintetizada. A narração é contínua, sem interação com plateia. Siglas, números e endereços estão grafados por extenso para garantir a pronúncia correta. Cada bloco corresponde a um slide; os títulos de seção servem apenas como marcação e não devem ser narrados. Duração estimada da narração: cerca de oito minutos, além do vídeo.
-
----
-
-## Slide 1 — Capa
-
-Bem-vindos à apresentação Segurança Digital: orientações e dicas de como se proteger.
-
-A transformação digital trouxe agilidade, conveniência e novas formas de trabalhar e de se relacionar. Trouxe também novos riscos. Golpes, fraudes e ataques cibernéticos atingem, todos os dias, pessoas e organizações em todo o mundo.
-
-Esta apresentação reúne orientações práticas de proteção no ambiente digital, aplicáveis à vida pessoal e ao ambiente de trabalho. São atitudes simples que, adotadas como hábito, bloqueiam a grande maioria das ameaças.
+> Texto preparado para ser lido por um agente de IA, do início ao fim, em fluxo contínuo — sem interação com plateia e sem instruções de palco. Os marcadores de slide indicam apenas o momento de troca de tela e não devem ser narrados. Siglas, números e endereços estão grafados para pronúncia correta. Duração estimada: cerca de oito minutos de narração, além do vídeo do slide cinco.
 
 ---
 
-## Slide 2 — Principais ameaças e golpes
+**[Slide 1 — Capa]**
 
-Para se proteger, é preciso primeiro conhecer as principais ameaças.
+Olá. Eu sou um agente de inteligência artificial e vou conduzir esta apresentação sobre Segurança Digital: orientações e dicas de como se proteger no ambiente conectado.
 
-O ponto central é este: o elo mais fraco da segurança digital é o ser humano. A maioria dos ataques não invade sistemas; engana pessoas. Essa técnica é chamada de engenharia social: a manipulação que explora pressa, medo e promessas de vantagem para induzir a vítima a agir sem refletir.
+A transformação digital trouxe agilidade e conveniência para o trabalho, para os negócios e para a vida pessoal. Trouxe, também, uma nova geração de riscos. Golpes, fraudes e ataques cibernéticos acontecem todos os dias, em escala industrial, atingindo pessoas e organizações de todos os tamanhos. A boa notícia é que a grande maioria desses ataques pode ser bloqueada com atitudes simples, ao alcance de qualquer pessoa. É exatamente isso que veremos nos próximos minutos.
 
-A partir desse princípio, quatro ameaças merecem atenção especial.
+**[Slide 2 — Crimes cibernéticos mais praticados no Brasil]**
 
-Primeira ameaça: o phishing. São mensagens falsas, enviadas por e-mail, por SMS ou por aplicativos de mensagem, que imitam empresas legítimas com o objetivo de roubar senhas e dados de cartão.
+Para começar, é preciso conhecer o inimigo. Estes são os crimes cibernéticos mais praticados no Brasil atualmente.
 
-Segunda ameaça: os golpes com Pix. Criminosos se passam por centrais de atendimento bancário e solicitam transferências para uma suposta conta segura. Registre-se: nenhuma instituição bancária solicita transferências por telefone, em nenhuma hipótese.
+O primeiro é o phishing e as falsas centrais de atendimento: o envio de links falsos, ou ligações de criminosos se passando por bancos, com o objetivo de roubar senhas e dados pessoais.
 
-Terceira ameaça: a clonagem de WhatsApp. O golpista se apresenta como um familiar com número novo e pede dinheiro com urgência. Antes de qualquer transferência, a orientação é confirmar a identidade por ligação de voz ao número já conhecido.
+O segundo é o golpe do Pix: transferências induzidas por erro, perfis falsos ou invasão de contas de terceiros.
 
-Quarta ameaça: os programas maliciosos, conhecidos como malware, e o ransomware, o sequestro digital de dados. Aplicativos piratas, anexos suspeitos e programas de origem duvidosa instalam códigos que espionam o usuário ou criptografam seus arquivos para exigir resgate.
+O terceiro é a clonagem de cartão: o roubo de dados de cartões de crédito em compras online fraudulentas ou em maquininhas adulteradas.
 
----
+O quarto é a invasão de dispositivos: o acesso não autorizado a celulares e computadores, para furto de dados ou para envio de mensagens em nome da vítima.
 
-## Slide 3 — Como se proteger: seis atitudes essenciais
+O quinto são os crimes de ódio e assédio: discurso discriminatório, exposição de imagens íntimas e crimes contra a honra nas redes sociais.
 
-Conhecidas as ameaças, apresentamos seis atitudes essenciais de proteção.
+E o sexto é a engenharia social: a manipulação psicológica que explora pressa, medo e confiança para induzir a vítima a entregar dados ou dinheiro. Repare que a engenharia social atravessa quase todos os outros: na maioria dos casos, o criminoso não invade sistemas — ele engana pessoas.
 
-Atitude um: senhas fortes e únicas. Utilize frases longas, com no mínimo doze caracteres, e uma senha diferente para cada serviço. Um gerenciador de senhas, como Bitwarden, One Password ou KeePass, cria e armazena senhas fortes com segurança. Recomenda-se também verificar se o seu endereço de e-mail já apareceu em vazamentos de dados, em serviços como o site Have I Been Pwned.
+Uma observação importante: não existe uma estatística única e oficial sobre crimes cibernéticos no Brasil. O ranking muda conforme a fonte, porque cada uma mede uma coisa diferente: registros policiais, denúncias de conteúdo ou pesquisas de vitimização. Por isso, mais importante do que decorar números é reconhecer os padrões de ataque.
 
-Atitude dois: autenticação em duas etapas em todas as contas. Mesmo que a senha seja descoberta, o invasor esbarra na segunda verificação. Ative esse recurso no e-mail, no banco, no WhatsApp e nas redes sociais, preferencialmente por aplicativo autenticador. O código por SMS deve ser o último recurso, pois está sujeito à clonagem de chip. E atenção à regra fundamental: nenhuma empresa legítima solicita códigos de verificação. Quem pede o código é golpista.
+**[Slide 3 — Defesa em camadas]**
 
-Atitude três: desconfie da urgência. O golpe depende da pressa da vítima. Diante de mensagens alarmantes, não clique no link recebido. Confira o remetente e o endereço, digite você mesmo o site oficial no navegador e confirme a informação por outro canal. Pare, pense e verifique.
+Conhecidas as ameaças, vamos à defesa. A proteção eficaz funciona em camadas, como as que aparecem neste diagrama: se uma falhar, a próxima segura o golpe. São seis atitudes essenciais.
 
-Atitude quatro: mantenha tudo atualizado. As atualizações corrigem falhas de segurança que os criminosos já conhecem e exploram. Ative a atualização automática do sistema operacional, dos aplicativos e do roteador, e substitua os sistemas que perderam o suporte do fabricante.
+Camada um: senhas fortes e únicas. Utilize frases longas e uma senha diferente para cada serviço. Um gerenciador de senhas — como Bitwarden, One Password ou KeePass — cria e guarda tudo por você. E verifique se o seu e-mail já apareceu em vazamentos de dados, em serviços como o site Have I Been Pwned.
 
-Atitude cinco: adote a política de backup três, dois, um. Mantenha três cópias dos dados importantes, em dois tipos de mídia diferentes, com uma cópia fora do local, por exemplo, na nuvem. O backup é a defesa mais eficaz contra o ransomware e contra a perda do equipamento. Teste a restauração periodicamente.
+Camada dois: autenticação em duas etapas. Mesmo que a senha seja descoberta, o invasor esbarra na segunda verificação. Ative no e-mail, no banco, no WhatsApp e nas redes sociais, de preferência por aplicativo autenticador. O código por SMS deve ser o último recurso, porque está sujeito à clonagem de chip. E grave esta regra: quem pede o seu código de verificação é golpista. Sempre. Sem exceção.
 
-Atitude seis: reaja com rapidez a incidentes. Em caso de golpe, cada minuto é decisivo. Troque as senhas, começando pelo e-mail; acione o banco; solicite a devolução de valores do Pix pelo Mecanismo Especial de Devolução; e registre boletim de ocorrência. Preserve as evidências, como capturas de tela e comprovantes, e monitore o seu CPF por meio do sistema Registrato, do Banco Central, e dos birôs de crédito.
+Camada três: desconfie da urgência. O golpe depende da pressa da vítima. Diante de uma mensagem alarmante, não clique no link. Confira o remetente e o endereço, digite você mesmo o site oficial no navegador e confirme por outro canal. Pare. Pense. Verifique.
 
-Por fim, uma orientação sobre conexões. Em redes Wi-Fi públicas, evite acessar bancos e digitar senhas; prefira a rede de dados do celular. Em casa, troque a senha padrão do roteador. E lembre-se: o cadeado exibido no navegador indica apenas que a conexão é criptografada. Ele não garante a honestidade do site. Golpistas também utilizam conexões seguras.
+Camada quatro: atualize sempre. As atualizações corrigem falhas de segurança que os criminosos já conhecem e exploram. Deixe o sistema, os aplicativos e o roteador em atualização automática, e abandone os sistemas que perderam o suporte do fabricante.
 
----
+Camada cinco: backup três, dois, um. Três cópias dos dados importantes, em dois tipos de mídia, com uma cópia fora do local — na nuvem, por exemplo. É a defesa real contra o ransomware, o sequestro digital de dados. E teste a restauração de tempos em tempos: backup que nunca foi testado não é backup.
 
-## Slide 4 — Segurança digital na Petrobras
+Camada seis: reaja rápido a incidentes. Se o golpe acontecer, cada minuto conta. Troque as senhas, começando pelo e-mail. Acione o banco. Solicite a devolução dos valores do Pix pelo Mecanismo Especial de Devolução. Registre boletim de ocorrência. Guarde as provas, como capturas de tela e comprovantes, e monitore o seu CPF pelo sistema Registrato, do Banco Central.
 
-No ambiente corporativo, a segurança digital protege não apenas o colaborador, mas toda a companhia. A postura esperada resume-se em uma frase: na dúvida, não clique, não repasse e não instale. Consulte a equipe de segurança da informação.
+Um bônus sobre conexões: em redes Wi-Fi públicas, evite acessar bancos e digitar senhas — prefira a rede de dados do celular. Em casa, troque a senha padrão do roteador. E lembre-se: o cadeado do navegador indica apenas que a conexão é criptografada. Ele não garante que o site seja honesto. Golpistas também usam cadeado.
 
-Seis orientações estruturam essa postura.
+**[Slide 4 — Segurança digital na Petrobras]**
 
-Primeira: as credenciais são pessoais. Chave e senha corporativas são individuais e intransferíveis. Não devem ser compartilhadas com colegas ou gestores, nem reutilizadas em serviços externos.
+No ambiente corporativo, a segurança digital protege não apenas o colaborador, mas toda a companhia. Na Petrobras, essa postura se resume na frase que está no centro do diagrama: na dúvida, não clique, não repasse e não instale — pergunte ao time de segurança da informação.
 
-Segunda: respeite a classificação da informação. Informações não públicas não devem circular por e-mail pessoal, dispositivos removíveis ou aplicativos de mensagem.
+Ao redor desse princípio, seis orientações. Primeira: as credenciais são pessoais. Chave e senha são individuais e intransferíveis; nunca compartilhe, nem reutilize em serviços externos. Segunda: respeite a classificação da informação. Informação não pública não sai por e-mail pessoal, pen drive ou aplicativos de mensagem. Terceira: estação bloqueada. Ao se ausentar, bloqueie a tela com a combinação de teclas Windows e L, e pratique a mesa limpa, sem senhas anotadas nem documentos expostos. Quarta: no trabalho remoto, use somente equipamentos corporativos, com VPN, e evite redes públicas para acessar os sistemas da companhia. Quinta: o setor de energia é alvo. Empresas como a Petrobras sofrem ataques direcionados e espionagem industrial; desconfie de contatos inesperados pedindo dados técnicos ou comerciais. E sexta: reporte imediatamente. Recebeu um e-mail suspeito, perdeu um equipamento, clicou em um link malicioso? Comunique os canais internos na hora. Reportar rápido não é admitir erro — é limitar o dano e proteger toda a organização.
 
-Terceira: mantenha a estação de trabalho bloqueada. Ao se ausentar, utilize a combinação de teclas Windows e L, e pratique a política de mesa limpa, sem senhas anotadas nem documentos expostos.
+**[Slide 5 — Vídeo e mensagem final]**
 
-Quarta: no trabalho remoto, utilize exclusivamente equipamentos corporativos com rede privada virtual, a VPN. Evite redes públicas para acessar os sistemas da companhia.
+Para ver tudo isso na prática, assistiremos agora a uma breve reportagem sobre como evitar golpes digitais e proteger seus dados na internet.
 
-Quinta: o setor de energia é alvo de ataques direcionados e de espionagem industrial. Contatos inesperados que solicitem dados técnicos ou comerciais devem ser tratados com desconfiança e comunicados aos canais competentes.
-
-Sexta: reporte incidentes imediatamente. Ao receber um e-mail suspeito, perder um equipamento ou clicar em um link malicioso, comunique de imediato os canais internos de segurança da informação. A comunicação rápida limita os danos e protege toda a organização.
-
----
-
-## Slide 5 — Vídeo e mensagem final
-
-A seguir, um breve vídeo demonstra, na prática, como os golpes digitais se apresentam e como é possível se proteger.
-
-*Pausa para a exibição do vídeo.*
+*[Pausa — exibição do vídeo]*
 
 Encerramos com quatro mensagens.
 
 Primeira: segurança é hábito, não é produto. Nenhuma ferramenta substitui a atenção de cada um.
 
-Segunda: desconfiar, verificar e atualizar são atitudes simples que bloqueiam a grande maioria dos ataques.
+Segunda: desconfiar, verificar e atualizar. Três verbos simples que bloqueiam a grande maioria dos ataques.
 
-Terceira: quem desacelera não cai. O golpe depende da pressa; a calma é a melhor defesa.
+Terceira: quem desacelera não cai. O golpe depende da sua pressa — a calma é a sua melhor defesa.
 
-Quarta: reportar com rapidez protege você e protege os demais.
+E quarta: reportar rápido protege você e protege os próximos.
 
-Para aprofundamento, recomendam-se as fontes oficiais indicadas na tela: a Cartilha de Segurança para Internet, do CERT ponto br; o guia antifraudes da Febraban; e os vídeos do programa Cidadão na Rede, do NIC ponto br.
+Para quem quiser se aprofundar, ficam as fontes oficiais indicadas na tela: a Cartilha de Segurança para Internet, no endereço cartilha ponto cert ponto br; o guia antifraudes da Febraban, em antifraudes ponto febraban ponto org ponto br; e os vídeos do programa Cidadão na Rede, em cidadão na rede ponto nic ponto br.
 
-A segurança digital é um compromisso de todos. Obrigado pela atenção.
+A segurança digital é um compromisso de todos — e começa na próxima mensagem que chegar ao seu celular. Obrigado pela atenção.
